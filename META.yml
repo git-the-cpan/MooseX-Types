@@ -21,4 +21,4 @@ requires:
   Sub::Install: 0.922
   Sub::Uplevel: 0.14
   namespace::clean: 0.04
-version: 0.01
+version: 0.02

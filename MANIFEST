@@ -21,4 +21,5 @@ t/10_moose-types.t
 t/11_library-definition.t
 t/12_wrapper-definition.t
 t/lib/TestLibrary.pm
+t/lib/TestNamespaceSep.pm
 t/lib/TestWrapper.pm
