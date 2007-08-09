@@ -114,7 +114,7 @@ LIBRARY DEFINITION
     You will have to define coercions for your types or your library won't
     export a "to_$type" coercion helper for it.
 
-    Note that you currently cannot define types containint "::", since
+    Note that you currently cannot define types containing "::", since
     exporting would be a problem.
 
 LIBRARY USAGE

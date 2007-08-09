@@ -15,10 +15,26 @@ no_index:
   directory: 
     - inc
     - t
+provides: 
+  MooseX::Types: 
+    file: lib/MooseX/Types.pm
+    version: 0.03
+  MooseX::Types::Base: 
+    file: lib/MooseX/Types/Base.pm
+  MooseX::Types::Moose: 
+    file: lib/MooseX/Types/Moose.pm
+  MooseX::Types::UndefinedType: 
+    file: lib/MooseX/Types/UndefinedType.pm
+  MooseX::Types::Util: 
+    file: lib/MooseX/Types/Util.pm
+  MooseX::Types::Wrapper: 
+    file: lib/MooseX/Types/Wrapper.pm
 requires: 
   Carp: 0
+  Carp::Clan: 0
+  Class::MOP: 0
   Moose: 0.24
   Sub::Install: 0.922
   Sub::Uplevel: 0.14
   namespace::clean: 0.04
-version: 0.02
+version: 0.03
