@@ -4,7 +4,6 @@ NAME
 SYNOPSIS
   Library Definition
       package MyLibrary;
-      use strict;
 
       # predeclare our own types
       use MooseX::Types 
@@ -116,6 +115,9 @@ LIBRARY DEFINITION
 
     Note that you currently cannot define types containing "::", since
     exporting would be a problem.
+
+    You also don't need to use "warnings" and "strict", since the definition
+    of a library automatically exports those.
 
 LIBRARY USAGE
     You can import the "type helpers" of a library by "use"ing it with a

@@ -18,7 +18,7 @@ no_index:
 provides: 
   MooseX::Types: 
     file: lib/MooseX/Types.pm
-    version: 0.03
+    version: 0.04
   MooseX::Types::Base: 
     file: lib/MooseX/Types/Base.pm
   MooseX::Types::Moose: 
@@ -37,4 +37,4 @@ requires:
   Sub::Install: 0.922
   Sub::Uplevel: 0.14
   namespace::clean: 0.04
-version: 0.03
+version: 0.04

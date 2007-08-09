@@ -20,7 +20,7 @@ use Moose;
 
 use namespace::clean -except => [qw( meta )];
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
@@ -29,7 +29,6 @@ my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 =head2 Library Definition
 
   package MyLibrary;
-  use strict;
 
   # predeclare our own types
   use MooseX::Types 
@@ -149,6 +148,9 @@ export a L</to_$type> coercion helper for it.
 Note that you currently cannot define types containing C<::>, since 
 exporting would be a problem.
 
+You also don't need to use C<warnings> and C<strict>, since the
+definition of a library automatically exports those.
+
 =head1 LIBRARY USAGE
 
 You can import the L<"type helpers"|/"TYPE HANDLER FUNCTIONS"> of a
@@ -252,6 +254,10 @@ functions you will need to declare your types.
 sub import {
     my ($class, %args) = @_;
     my  $callee = caller;
+
+    # everyone should want this
+    strict->import;
+    warnings->import;
 
     # inject base class into new library
     {   no strict 'refs';
