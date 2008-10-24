@@ -1,40 +1,42 @@
---- 
-abstract: Organise your Moose types in libraries
-author: Robert 'phaylon' Sedlacek <rs@474.at>
-build_requires: 
+---
+abstract: 'Organise your Moose types in libraries'
+author:
+  - 'Robert ''phaylon' Sedlacek <rs@474.at>'
+build_requires:
   FindBin: 0
-  Test::More: 0.62
+  Test::More: 0.8
 distribution_type: module
-generated_by: Module::Install version 0.67
+generated_by: 'Module::Install version 0.75'
 license: perl
-meta-spec: 
+meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
   version: 1.3
 name: MooseX-Types
-no_index: 
-  directory: 
+no_index:
+  directory:
     - inc
     - t
-provides: 
-  MooseX::Types: 
+provides:
+  MooseX::Types:
     file: lib/MooseX/Types.pm
-    version: 0.04
-  MooseX::Types::Base: 
+    version: 0.06
+  MooseX::Types::Base:
     file: lib/MooseX/Types/Base.pm
-  MooseX::Types::Moose: 
+  MooseX::Types::Moose:
     file: lib/MooseX/Types/Moose.pm
-  MooseX::Types::UndefinedType: 
+  MooseX::Types::TypeDecorator:
+    file: lib/MooseX/Types/TypeDecorator.pm
+  MooseX::Types::UndefinedType:
     file: lib/MooseX/Types/UndefinedType.pm
-  MooseX::Types::Util: 
+  MooseX::Types::Util:
     file: lib/MooseX/Types/Util.pm
-  MooseX::Types::Wrapper: 
+  MooseX::Types::Wrapper:
     file: lib/MooseX/Types/Wrapper.pm
-requires: 
+requires:
   Carp: 0
-  Carp::Clan: 0
-  Class::MOP: 0
-  Moose: 0.24
-  Sub::Install: 0.922
-  Sub::Uplevel: 0.14
-  namespace::clean: 0.04
-version: 0.04
+  Carp::Clan: 6
+  Moose: 0.6
+  Scalar::Util: 1.19
+  Sub::Install: 0.924
+  namespace::clean: 0.08
+version: 0.06

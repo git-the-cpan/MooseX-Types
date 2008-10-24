@@ -1,4 +1,15 @@
 
+0.06    Fri Oct  24 15:00:00 EST 2008
+        - Added support for parameterized types and type unions, tests for all
+        that and documentation updates.
+        
+0.05    [Indetermined]
+        - moved export mechanism to Sub::Exporter. ::Base contains
+          a bunch of wrapping logic to allow the export-along functionality
+          for the helper symbols
+        - removed vestigial load of Sub::UpLevel since it breaks
+          the argument display in confess()
+
 0.04    Thu Aug  9 20:56:14 CEST 2007
         - Automatically set strict and warnings like Moose does
 

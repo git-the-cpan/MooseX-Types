@@ -13,6 +13,7 @@ inc/Module/Install/WriteAll.pm
 lib/MooseX/Types.pm
 lib/MooseX/Types/Base.pm
 lib/MooseX/Types/Moose.pm
+lib/MooseX/Types/TypeDecorator.pm
 lib/MooseX/Types/UndefinedType.pm
 lib/MooseX/Types/Util.pm
 lib/MooseX/Types/Wrapper.pm
@@ -23,6 +24,8 @@ README
 t/10_moose-types.t
 t/11_library-definition.t
 t/12_wrapper-definition.t
+t/13_typedecorator.t
+t/lib/DecoratorLibrary.pm
 t/lib/TestLibrary.pm
 t/lib/TestNamespaceSep.pm
 t/lib/TestWrapper.pm
