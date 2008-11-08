@@ -6,37 +6,23 @@ build_requires:
   FindBin: 0
   Test::More: 0.8
 distribution_type: module
-generated_by: 'Module::Install version 0.75'
+generated_by: 'Module::Install version 0.76'
 license: perl
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
 name: MooseX-Types
 no_index:
   directory:
     - inc
     - t
-provides:
-  MooseX::Types:
-    file: lib/MooseX/Types.pm
-    version: 0.06
-  MooseX::Types::Base:
-    file: lib/MooseX/Types/Base.pm
-  MooseX::Types::Moose:
-    file: lib/MooseX/Types/Moose.pm
-  MooseX::Types::TypeDecorator:
-    file: lib/MooseX/Types/TypeDecorator.pm
-  MooseX::Types::UndefinedType:
-    file: lib/MooseX/Types/UndefinedType.pm
-  MooseX::Types::Util:
-    file: lib/MooseX/Types/Util.pm
-  MooseX::Types::Wrapper:
-    file: lib/MooseX/Types/Wrapper.pm
 requires:
   Carp: 0
   Carp::Clan: 6
-  Moose: 0.6
+  Moose: 0.61
   Scalar::Util: 1.19
   Sub::Install: 0.924
   namespace::clean: 0.08
-version: 0.06
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.07
