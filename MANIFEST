@@ -25,7 +25,10 @@ t/10_moose-types.t
 t/11_library-definition.t
 t/12_wrapper-definition.t
 t/13_typedecorator.t
+t/14_compatibility-sub-exporter.t
+t/15_recursion.t
 t/lib/DecoratorLibrary.pm
+t/lib/SubExporterCompatibility.pm
 t/lib/TestLibrary.pm
 t/lib/TestNamespaceSep.pm
 t/lib/TestWrapper.pm

@@ -51,7 +51,10 @@ sub new {
     if(my $arg = shift @_) {
         if(blessed $arg && $arg->isa('Moose::Meta::TypeConstraint')) {
             return bless {'__type_constraint'=>$arg}, $class;
-        } elsif(blessed $arg && $arg->isa('MooseX::Types::UndefinedType')) {
+        } elsif(
+            blessed $arg &&
+            $arg->isa('MooseX::Types::UndefinedType') 
+          ) {
             ## stub in case we'll need to handle these types differently
             return bless {'__type_constraint'=>$arg}, $class;
         } elsif(blessed $arg) {
@@ -60,7 +63,7 @@ sub new {
             croak "Argument cannot be '$arg'";
         }
     } else {
-        croak "This method [new] requires a single argument of 'arg'.";        
+        croak "This method [new] requires a single argument.";        
     }
 }
 
@@ -130,12 +133,22 @@ Delegate to the decorator targe
 =cut
 
 sub AUTOLOAD {
+    
     my ($self, @args) = @_;
     my ($method) = (our $AUTOLOAD =~ /([^:]+)$/);
-    if($self->__type_constraint->can($method)) {
-        return $self->__type_constraint->$method(@args);
+    
+    ## We delegate with this method in an attempt to support a value of
+    ## __type_constraint which is also AUTOLOADing, in particular the class
+    ## MooseX::Types::UndefinedType which AUTOLOADs during autovivication.
+    
+    my $return;
+    
+    eval {
+        $return = $self->__type_constraint->$method(@args);
+    }; if($@) {
+        croak $@;
     } else {
-        croak "Method '$method' is not supported";   
+        return $return;
     }
 }
 
