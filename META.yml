@@ -1,16 +1,16 @@
 ---
 abstract: 'Organise your Moose types in libraries'
 author:
-  - 'Robert ''phaylon' Sedlacek <rs@474.at>'
+  - "Robert \"phaylon\" Sedlacek <rs@474.at>"
 build_requires:
   FindBin: 0
   Test::More: 0.8
 distribution_type: module
-generated_by: 'Module::Install version 0.75'
+generated_by: 'Module::Install version 0.77'
 license: perl
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
 name: MooseX-Types
 no_index:
   directory:
@@ -24,4 +24,6 @@ requires:
   Sub::Install: 0.924
   namespace::clean: 0.08
   perl: 5.8.0
-version: 0.08
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.09

@@ -21,8 +21,8 @@ SYNOPSIS
           as Int, 
           where { $_ > 0 },
           message { "Int is not larger than 0" };
-  
-      subtype NegativeInt,
+      
+  subtype NegativeInt,
           as Int,
           where { $_ < 0 },
           message { "Int is not smaller than 0" };
@@ -33,20 +33,20 @@ SYNOPSIS
               via { 1 };
 
       # with parameterized constraints.
-  
-      subtype ArrayRefOfPositiveInt,
+      
+  subtype ArrayRefOfPositiveInt,
         as ArrayRef[PositiveInt];
-    
-      subtype ArrayRefOfAtLeastThreeNegativeInts,
+        
+  subtype ArrayRefOfAtLeastThreeNegativeInts,
         as ArrayRef[NegativeInt],
         where { scalar(@$_) > 2 };
 
       subtype LotsOfInnerConstraints,
         as ArrayRef[ArrayRef[HashRef[Int]]];
-    
-      # with TypeConstraint Unions
-  
-      subtype StrOrArrayRef,
+        
+  # with TypeConstraint Unions
+      
+  subtype StrOrArrayRef,
         as Str|ArrayRef;
 
       1;
@@ -217,148 +217,151 @@ WRAPPING A LIBRARY
         the type does not yet exist.
 
 RECURSIVE SUBTYPES
-        As of version 0.08, Moose::Types has experimental support for
-        Recursive subtypes. This will allow:
+    As of version 0.08, Moose::Types has experimental support for Recursive
+    subtypes. This will allow:
 
-            subtype Tree() => as HashRef[Str|Tree];
+        subtype Tree() => as HashRef[Str|Tree];
 
-        Which validates things like:
+    Which validates things like:
 
-            {key=>'value'};
-            {key=>{subkey1=>'value', subkey2=>'value'}}
-    
-        And so on. This feature is new and there may be lurking bugs so
-        don't be afraid to hunt me down with patches and test cases if you
-        have trouble.
+        {key=>'value'};
+        {key=>{subkey1=>'value', subkey2=>'value'}}
+
+    And so on. This feature is new and there may be lurking bugs so don't be
+    afraid to hunt me down with patches and test cases if you have trouble.
 
 NOTES REGARDING TYPE UNIONS
-        MooseX::Types uses MooseX::Types::TypeDecorator to do some
-        overloading which generally allows you to easily create union types:
+    MooseX::Types uses MooseX::Types::TypeDecorator to do some overloading
+    which generally allows you to easily create union types:
 
-          subtype StrOrArrayRef,
-            as Str|ArrayRef;    
+      subtype StrOrArrayRef,
+        as Str|ArrayRef;
 
-        As with parameterized constrains, this overloading extends to
-        modules using the types you define in a type library.
+    As with parameterized constrains, this overloading extends to modules
+    using the types you define in a type library.
 
-            use Moose;
-            use MooseX::Types::Moose qw(HashRef Int);
-    
-            has 'attr' => (isa=>HashRef|Int);
+        use Moose;
+        use MooseX::Types::Moose qw(HashRef Int);
+        
+    has 'attr' => (isa=>HashRef|Int);
 
-        And everything should just work as you'd think.
+    And everything should just work as you'd think.
 
 METHODS
   import
-        Installs the MooseX::Types::Base class into the caller and exports
-        types according to the specification described in "LIBRARY
-        DEFINITION". This will continue to Moose::Util::TypeConstraints'
-        "import" method to export helper functions you will need to declare
-        your types.
+    Installs the MooseX::Types::Base class into the caller and exports types
+    according to the specification described in "LIBRARY DEFINITION". This
+    will continue to Moose::Util::TypeConstraints' "import" method to export
+    helper functions you will need to declare your types.
 
   type_export_generator
-        Generate a type export, e.g. "Int()". This will return either a
-        Moose::Meta::TypeConstraint object, or alternatively a
-        MooseX::Types::UndefinedType object if the type was not yet defined.
+    Generate a type export, e.g. "Int()". This will return either a
+    Moose::Meta::TypeConstraint object, or alternatively a
+    MooseX::Types::UndefinedType object if the type was not yet defined.
 
   create_arged_type_constraint ($name, @args)
-        Given a String $name with @args find the matching typeconstraint and
-        parameterize it with @args.
+    Given a String $name with @args find the matching typeconstraint and
+    parameterize it with @args.
 
   create_base_type_constraint ($name)
-        Given a String $name, find the matching typeconstraint.
+    Given a String $name, find the matching typeconstraint.
 
   create_type_decorator ($type_constraint)
-        Given a $type_constraint, return a lightweight
-        MooseX::Types::TypeDecorator instance.
+    Given a $type_constraint, return a lightweight
+    MooseX::Types::TypeDecorator instance.
 
   coercion_export_generator
-        This generates a coercion handler function, e.g. "to_Int($value)".
+    This generates a coercion handler function, e.g. "to_Int($value)".
 
   check_export_generator
-        Generates a constraint check closure, e.g. "is_Int($value)".
+    Generates a constraint check closure, e.g. "is_Int($value)".
 
 CAVEATS
-        The following are lists of gotcha's and their workarounds for
-        developers coming from the standard string based type constraint
-        names
+    The following are lists of gotcha's and their workarounds for developers
+    coming from the standard string based type constraint names
 
   Uniqueness
-        A library makes the types quasi-unique by prefixing their names with
-        (by default) the library package name. If you're only using the type
-        handler functions provided by MooseX::Types, you shouldn't ever have
-        to use a type's actual full name.
+    A library makes the types quasi-unique by prefixing their names with (by
+    default) the library package name. If you're only using the type handler
+    functions provided by MooseX::Types, you shouldn't ever have to use a
+    type's actual full name.
 
   Argument separation ('=>' versus ',')
-        The Perlop manpage has this to say about the '=>' operator: "The =>
-        operator is a synonym for the comma, but forces any word (consisting
-        entirely of word characters) to its left to be interpreted as a
-        string (as of 5.001). This includes words that might otherwise be
-        considered a constant or function call."
+    The Perlop manpage has this to say about the '=>' operator: "The =>
+    operator is a synonym for the comma, but forces any word (consisting
+    entirely of word characters) to its left to be interpreted as a string
+    (as of 5.001). This includes words that might otherwise be considered a
+    constant or function call."
 
-        Due to this stringification, the following will NOT work as you
-        might think:
+    Due to this stringification, the following will NOT work as you might
+    think:
 
-          subtype StrOrArrayRef => as Str|ArrayRef;
-  
-        The 'StrOrArrayRef' will have it's stringification activated this
-        causes the subtype to not be created. Since the bareword type
-        constraints are not strings you really should not try to treat them
-        that way. You will have to use the ',' operator instead. The
-        author's of this package realize that all the Moose documention and
-        examples nearly uniformly use the '=>' version of the comma operator
-        and this could be an issue if you are converting code.
+      subtype StrOrArrayRef => as Str|ArrayRef;
 
-        Patches welcome for discussion.
+    The 'StrOrArrayRef' will have it's stringification activated this causes
+    the subtype to not be created. Since the bareword type constraints are
+    not strings you really should not try to treat them that way. You will
+    have to use the ',' operator instead. The author's of this package
+    realize that all the Moose documention and examples nearly uniformly use
+    the '=>' version of the comma operator and this could be an issue if you
+    are converting code.
+
+    Patches welcome for discussion.
 
   Compatibility with Sub::Exporter
-        If you want to use Sub::Exporter with a Type Library, you need to
-        make sure you export all the type constraints declared AS WELL AS
-        any additional export targets. For example if you do:
+    If you want to use Sub::Exporter with a Type Library, you need to make
+    sure you export all the type constraints declared AS WELL AS any
+    additional export targets. For example if you do:
 
-            package TypeAndSubExporter; {
+        package TypeAndSubExporter; {
+            
+        use MooseX::Types::Moose qw(Str);
+            use MooseX::Types -declare => [qw(MyStr)];
+            use Sub::Exporter -setup => { exports => [ qw(something) ] };
+            
+        subtype MyStr,
+             as Str;
+             
+        sub something {
+                return 1;
+            }    
+            
+    } 1;
         
-                use MooseX::Types::Moose qw(Str);
-                use MooseX::Types -declare => [qw(MyStr)];
-                use Sub::Exporter -setup => { exports => [ qw(something) ] };
-        
-                subtype MyStr,
-                 as Str;
-         
-                sub something {
-                    return 1;
-                }    
-        
-            } 1;
-    
-            package Foo; {
-                use TypeAndSubExporter qw(MyStr);
-            } 1;
+    package Foo; {
+            use TypeAndSubExporter qw(MyStr);
+        } 1;
 
-        You'll get a '"MyStr" is not exported by the TypeAndSubExporter
-        module' error. Upi can workaround by:
+    You'll get a '"MyStr" is not exported by the TypeAndSubExporter module'
+    error. Upi can workaround by:
 
-                - use Sub::Exporter -setup => { exports => [ qw(something) ] };
-                + use Sub::Exporter -setup => { exports => [ qw(something MyStr) ] };
+            - use Sub::Exporter -setup => { exports => [ qw(something) ] };
+            + use Sub::Exporter -setup => { exports => [ qw(something MyStr) ] };
 
-        This is a workaround and I am exploring how to make these modules
-        work better together. I realize this workaround will lead a lot of
-        duplication in your export declarations and will be onerous for
-        large type libraries. Patches and detailed test cases welcome. See
-        the tests directory for a start on this.
+    This is a workaround and I am exploring how to make these modules work
+    better together. I realize this workaround will lead a lot of
+    duplication in your export declarations and will be onerous for large
+    type libraries. Patches and detailed test cases welcome. See the tests
+    directory for a start on this.
 
 SEE ALSO
-        Moose, Moose::Util::TypeConstraints, MooseX::Types::Moose,
-        Sub::Exporter
+    Moose, Moose::Util::TypeConstraints, MooseX::Types::Moose, Sub::Exporter
 
 AUTHOR AND COPYRIGHT
-        Robert 'phaylon' Sedlacek "<rs@474.at>", with many thanks to the
-        "#moose" cabal on "irc.perl.org".
+    Robert 'phaylon' Sedlacek "<rs@474.at>", with many thanks to the
+    "#moose" cabal on "irc.perl.org".
 
-        Additional features by John Napiorkowski (jnapiorkowski)
-        <jjnapiork@cpan.org>.
+    Additional features by John Napiorkowski (jnapiorkowski)
+    <jjnapiork@cpan.org>.
 
 LICENSE
-        This program is free software; you can redistribute it and/or modify
-        it under the same terms as perl itself.
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as perl itself.
+
+POD ERRORS
+    Hey! The above document had some coding errors, which are explained
+    below:
+
+    Around line 266:
+        You forgot a '=back' before '=head1'
 

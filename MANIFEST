@@ -27,7 +27,9 @@ t/12_wrapper-definition.t
 t/13_typedecorator.t
 t/14_compatibility-sub-exporter.t
 t/15_recursion.t
+t/16_introspection.t
 t/lib/DecoratorLibrary.pm
+t/lib/IntrospectTypeExports.pm
 t/lib/SubExporterCompatibility.pm
 t/lib/TestLibrary.pm
 t/lib/TestNamespaceSep.pm
