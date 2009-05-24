@@ -3,10 +3,13 @@ abstract: 'Organise your Moose types in libraries'
 author:
   - "Robert \"phaylon\" Sedlacek <rs@474.at>"
 build_requires:
+  ExtUtils::MakeMaker: 6.42
   FindBin: 0
-  Test::More: 0.8
+  Test::More: 0.80
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.79'
+generated_by: 'Module::Install version 0.87'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,14 +19,35 @@ no_index:
   directory:
     - inc
     - t
+provides:
+  MooseX::Types:
+    file: lib/MooseX/Types.pm
+    version: 0.11
+  MooseX::Types::Base:
+    file: lib/MooseX/Types/Base.pm
+  MooseX::Types::CheckedUtilExports:
+    file: lib/MooseX/Types/CheckedUtilExports.pm
+  MooseX::Types::Combine:
+    file: lib/MooseX/Types/Combine.pm
+  MooseX::Types::Moose:
+    file: lib/MooseX/Types/Moose.pm
+  MooseX::Types::TypeDecorator:
+    file: lib/MooseX/Types/TypeDecorator.pm
+  MooseX::Types::UndefinedType:
+    file: lib/MooseX/Types/UndefinedType.pm
+  MooseX::Types::Util:
+    file: lib/MooseX/Types/Util.pm
+  MooseX::Types::Wrapper:
+    file: lib/MooseX/Types/Wrapper.pm
 requires:
   Carp: 0
-  Carp::Clan: 6
+  Carp::Clan: 6.00
   Moose: 0.61
   Scalar::Util: 1.19
   Sub::Install: 0.924
+  Sub::Name: 0
   namespace::clean: 0.08
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.10
+version: 0.11
