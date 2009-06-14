@@ -20,7 +20,7 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 SYNOPSIS
@@ -122,8 +122,9 @@ names of the types will be prefixed with the library's name.
 This module will also provide you with some helper functions to make it 
 easier to use Moose types in your code.
 
-String type names will produce a syntax error, unless it's for a C<class_type>
-or C<role_type> declared within the library.
+String type names will produce a warning, unless it's for a C<class_type> or
+C<role_type> declared within the library, or a fully qualified name like
+C<'MyTypeLibrary::Foo'>.
 
 =head1 TYPE HANDLER FUNCTIONS
 
@@ -373,8 +374,8 @@ sub type_export_generator {
     
     ## Return an anonymous subroutine that will generate the proxied type
     ## constraint for you.
-    
-    return subname $name => sub {
+
+    return subname "__ANON__::$name" => sub {
         my $type_constraint = $class->create_base_type_constraint($name);
 
         if(defined(my $params = shift @_)) {

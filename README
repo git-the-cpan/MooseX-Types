@@ -97,8 +97,9 @@ DESCRIPTION
     This module will also provide you with some helper functions to make it
     easier to use Moose types in your code.
 
-    String type names will produce a syntax error, unless it's for a
-    "class_type" or "role_type" declared within the library.
+    String type names will produce a warning, unless it's for a "class_type"
+    or "role_type" declared within the library, or a fully qualified name
+    like 'MyTypeLibrary::Foo'.
 
 TYPE HANDLER FUNCTIONS
   $type
