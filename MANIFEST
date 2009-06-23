@@ -32,6 +32,7 @@ t/15_recursion.t
 t/16_introspection.t
 t/17_syntax_errors.t
 t/18_combined_libs.t
+t/19_typelib_with_role.t
 t/lib/Combined.pm
 t/lib/DecoratorLibrary.pm
 t/lib/IntrospectTypeExports.pm

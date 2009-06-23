@@ -20,7 +20,7 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 SYNOPSIS
@@ -375,7 +375,7 @@ sub type_export_generator {
     ## Return an anonymous subroutine that will generate the proxied type
     ## constraint for you.
 
-    return subname "__ANON__::$name" => sub {
+    return subname "__TYPE__::$name" => sub {
         my $type_constraint = $class->create_base_type_constraint($name);
 
         if(defined(my $params = shift @_)) {
