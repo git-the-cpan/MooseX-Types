@@ -23,7 +23,7 @@ no_index:
 provides:
   MooseX::Types:
     file: lib/MooseX/Types.pm
-    version: 0.13
+    version: 0.14
   MooseX::Types::Base:
     file: lib/MooseX/Types/Base.pm
   MooseX::Types::CheckedUtilExports:
@@ -51,4 +51,4 @@ requires:
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.13
+version: 0.14
