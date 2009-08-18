@@ -14,7 +14,7 @@ use Class::MOP ();
 
     package CombinedTypeLib;
 
-    use base 'MooseX::Types::Combined';
+    use base 'MooseX::Types::Combine';
 
     __PACKAGE__->provide_types_from(qw/TypeLib1 TypeLib2/);
 
@@ -72,6 +72,10 @@ sub provide_types_from {
 =head1 SEE ALSO
 
 L<MooseX::Types>
+
+=head1 AUTHOR
+
+See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 

@@ -8,6 +8,7 @@ MooseX::Types::Util - Common utility functions for the module
 
 use warnings;
 use strict;
+use Scalar::Util 'blessed';
 
 use base 'Exporter';
 
@@ -88,7 +89,7 @@ sub has_available_type_export {
         or return undef;
 
     return undef
-        unless $sub->isa('MooseX::Types::EXPORTED_TYPE_CONSTRAINT');
+        unless blessed $sub && $sub->isa('MooseX::Types::EXPORTED_TYPE_CONSTRAINT');
 
     return $sub->();
 }
@@ -97,10 +98,9 @@ sub has_available_type_export {
 
 L<MooseX::Types::Moose>, L<Exporter>
 
-=head1 AUTHOR AND COPYRIGHT
+=head1 AUTHOR
 
-Robert 'phaylon' Sedlacek C<E<lt>rs@474.atE<gt>>, with many thanks to
-the C<#moose> cabal on C<irc.perl.org>.
+See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 

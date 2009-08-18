@@ -1,5 +1,12 @@
 Revision history for MooseX-Types
 
+0.17    Tue Aug 18 02:32:31 EDT 2009
+        - Documentation typo fix (Dave Rolsky).
+        - Stop blowing up in has_available_type_export if the introspected code
+          symbol exists but is not a type export (Florian Ragwitz).
+        - Reorganize author/copyright sections at the request of Debian
+          packagers (Rafael Kitover).
+
 0.16    Mon Jun 29 10:50:41 PDT 2009
         - Ship with Module::Install 0.91
 
@@ -26,7 +33,7 @@ Revision history for MooseX-Types
 0.10    Fri March 06 17:34:00 EST 2009
         - Removed unneeded debugging code from one of the tests, which was
           causing installation errors for people that didn't already have
-          Data::Dump installed. (jjnapiork)	
+          Data::Dump installed. (jjnapiork)
 0.09    ...
         - Added MooseX::Types::Util::has_available_type_export($p, $n) to
           allow introspection of available types for other libraries wanting

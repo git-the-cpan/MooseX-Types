@@ -357,14 +357,22 @@ CAVEATS
 SEE ALSO
     Moose, Moose::Util::TypeConstraints, MooseX::Types::Moose, Sub::Exporter
 
-AUTHOR AND COPYRIGHT
-    Robert 'phaylon' Sedlacek "<rs@474.at>", with many thanks to the
-    "#moose" cabal on "irc.perl.org".
+ACKNOWLEDGEMENTS
+    Many thanks to the "#moose" cabal on "irc.perl.org".
 
-    Additional features by John Napiorkowski (jnapiorkowski)
-    <jjnapiork@cpan.org>.
+AUTHOR
+    Robert "phaylon" Sedlacek <rs@474.at>
 
-LICENSE
+CONTRIBUTORS
+    jnapiorkowski: John Napiorkowski <jjnapiork@cpan.org>
+
+    caelum: Rafael Kitover <rkitover@cpan.org>
+
+    rafl: Florian Ragwitz <rafl@debian.org>
+
+COPYRIGHT & LICENSE
+    Copyright (c) 2007-2009 Robert Sedlacek
+
     This program is free software; you can redistribute it and/or modify it
     under the same terms as perl itself.
 
