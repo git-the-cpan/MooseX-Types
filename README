@@ -11,6 +11,7 @@ SYNOPSIS
             PositiveInt NegativeInt
             ArrayRefOfPositiveInt ArrayRefOfAtLeastThreeNegativeInts
             LotsOfInnerConstraints StrOrArrayRef
+            MyDateTime
         )];
 
       # import builtin types
@@ -21,8 +22,8 @@ SYNOPSIS
           as Int, 
           where { $_ > 0 },
           message { "Int is not larger than 0" };
-      
-  subtype NegativeInt,
+  
+      subtype NegativeInt,
           as Int,
           where { $_ < 0 },
           message { "Int is not smaller than 0" };
@@ -33,25 +34,31 @@ SYNOPSIS
               via { 1 };
 
       # with parameterized constraints.
-      
-  subtype ArrayRefOfPositiveInt,
+  
+      subtype ArrayRefOfPositiveInt,
         as ArrayRef[PositiveInt];
-        
-  subtype ArrayRefOfAtLeastThreeNegativeInts,
+    
+      subtype ArrayRefOfAtLeastThreeNegativeInts,
         as ArrayRef[NegativeInt],
         where { scalar(@$_) > 2 };
 
       subtype LotsOfInnerConstraints,
         as ArrayRef[ArrayRef[HashRef[Int]]];
-        
-  # with TypeConstraint Unions
-      
-  subtype StrOrArrayRef,
+    
+      # with TypeConstraint Unions
+  
+      subtype StrOrArrayRef,
         as Str|ArrayRef;
+
+      # class types
 
       class_type 'DateTime';
 
-      coerce 'DateTime',
+      # or better
+
+      class_type MyDateTime, { class => 'DateTime' };
+
+      coerce MyDateTime,
         from HashRef,
         via { DateTime->new(%$_) };
 
@@ -252,8 +259,8 @@ NOTES REGARDING TYPE UNIONS
 
         use Moose;
         use MooseX::Types::Moose qw(HashRef Int);
-        
-    has 'attr' => (isa=>HashRef|Int);
+    
+        has 'attr' => (isa=>HashRef|Int);
 
     And everything should just work as you'd think.
 
@@ -324,21 +331,21 @@ CAVEATS
     additional export targets. For example if you do:
 
         package TypeAndSubExporter; {
-            
-        use MooseX::Types::Moose qw(Str);
+        
+            use MooseX::Types::Moose qw(Str);
             use MooseX::Types -declare => [qw(MyStr)];
             use Sub::Exporter -setup => { exports => [ qw(something) ] };
-            
-        subtype MyStr,
+        
+            subtype MyStr,
              as Str;
-             
-        sub something {
+         
+            sub something {
                 return 1;
             }    
-            
-    } 1;
         
-    package Foo; {
+        } 1;
+    
+        package Foo; {
             use TypeAndSubExporter qw(MyStr);
         } 1;
 
@@ -369,6 +376,8 @@ CONTRIBUTORS
     caelum: Rafael Kitover <rkitover@cpan.org>
 
     rafl: Florian Ragwitz <rafl@debian.org>
+
+    hdp: Hans Dieter Pearcey <hdp@cpan.org>
 
 COPYRIGHT & LICENSE
     Copyright (c) 2007-2009 Robert Sedlacek
