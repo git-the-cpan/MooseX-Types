@@ -20,7 +20,7 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 SYNOPSIS
@@ -431,11 +431,13 @@ sub create_arged_type_constraint {
     # It's obnoxious to have to parameterize before looking for the TC, but the
     # alternative is to hard-code the assumption that the name is
     # "$name[$args[0]]", which would be worse.
-    if (my $existing =
-        Moose::Util::TypeConstraints::find_type_constraint($parameterized->name)) {
-        return $existing;
-    }
-    Moose::Util::TypeConstraints::register_type_constraint($parameterized);
+    # This breaks MXMS, unfortunately, which relies on things like Tuple[...]
+    # creating new type objects each time.
+    # if (my $existing =
+    #     Moose::Util::TypeConstraints::find_type_constraint($parameterized->name)) {
+    #     return $existing;
+    # }
+    # Moose::Util::TypeConstraints::register_type_constraint($parameterized);
     return $parameterized;
 }
 
