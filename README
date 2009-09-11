@@ -380,7 +380,7 @@ CONTRIBUTORS
     hdp: Hans Dieter Pearcey <hdp@cpan.org>
 
 COPYRIGHT & LICENSE
-    Copyright (c) 2007-2009 Robert Sedlacek
+    Copyright (c) 2007-2009 Robert Sedlacek <rs@474.at>
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as perl itself.
