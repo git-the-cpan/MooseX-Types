@@ -5,6 +5,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 =cut
 
 package MooseX::Types::Combine;
+our $VERSION = "0.21";
 
 use strict;
 use warnings;
@@ -44,7 +45,14 @@ sub import {
     } @type_libs;
 
     my %from;
-    push @{ $from{ $types{ $_ } } }, $_ for @types;
+    for my $type (@types) {
+        die
+            "$caller asked for a type ($type) which is not found in any of the"
+            . " type libraries (@type_libs) combined by $class\n"
+            unless $types{$type};
+
+        push @{ $from{ $types{$type} } }, $type;
+    }
 
     $_->import({ -into => $caller }, @{ $from{ $_ } })
         for keys %from;
