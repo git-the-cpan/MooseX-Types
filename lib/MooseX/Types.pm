@@ -20,7 +20,7 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 SYNOPSIS
@@ -213,7 +213,7 @@ of a set of library exports. Here is an example:
 
   package MyWrapper;
   use strict;
-  use Class::C3;
+  use MRO::Compat;
   use base 'MooseX::Types::Wrapper';
 
   sub coercion_export_generator {
