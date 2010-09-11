@@ -24,31 +24,31 @@ no_index:
 provides:
   MooseX::Types:
     file: lib/MooseX/Types.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::Base:
     file: lib/MooseX/Types/Base.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::CheckedUtilExports:
     file: lib/MooseX/Types/CheckedUtilExports.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::Combine:
     file: lib/MooseX/Types/Combine.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::Moose:
     file: lib/MooseX/Types/Moose.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::TypeDecorator:
     file: lib/MooseX/Types/TypeDecorator.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::UndefinedType:
     file: lib/MooseX/Types/UndefinedType.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::Util:
     file: lib/MooseX/Types/Util.pm
-    version: 0.23
+    version: 0.24
   MooseX::Types::Wrapper:
     file: lib/MooseX/Types/Wrapper.pm
-    version: 0.23
+    version: 0.24
 requires:
   Carp: 0
   Carp::Clan: 6.00
@@ -60,4 +60,4 @@ requires:
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.23
+version: 0.24
