@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::Exception;
 
-use Test::More tests => 2;
+use Test::More;
 
 BEGIN {
     package TypeLib;
@@ -47,3 +46,4 @@ BEGIN {
     ::ok( $subtype->has_coercion, 'coercion applied to subtype' );
 }
 
+done_testing();

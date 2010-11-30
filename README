@@ -122,8 +122,8 @@ TYPE HANDLER FUNCTIONS
     return a false value if the type could not be coerced.
 
     Important Note: This handler will only be exported for types that can do
-    type coercion. This has the advantage that a coercion to a type that
-    cannot hasn't defined any coercions will lead to a compile-time error.
+    type coercion. This has the advantage that a coercion to a type that has
+    not defined any coercions will lead to a compile-time error.
 
 LIBRARY DEFINITION
     A MooseX::Types is just a normal Perl module. Unlike Moose itself, it
@@ -315,7 +315,7 @@ CAVEATS
 
       subtype StrOrArrayRef => as Str|ArrayRef;
 
-    The 'StrOrArrayRef' will have it's stringification activated this causes
+    The 'StrOrArrayRef' will have its stringification activated this causes
     the subtype to not be created. Since the bareword type constraints are
     not strings you really should not try to treat them that way. You will
     have to use the ',' operator instead. The author's of this package
@@ -360,6 +360,14 @@ CAVEATS
     duplication in your export declarations and will be onerous for large
     type libraries. Patches and detailed test cases welcome. See the tests
     directory for a start on this.
+
+COMBINING TYPE LIBRARIES
+    You may want to combine a set of types for your application with other
+    type libraries, like MooseX::Types::Moose or
+    MooseX::Types::Common::String.
+
+    The MooseX::Types::Combine module provides a simple API for combining a
+    set of type libraries together.
 
 SEE ALSO
     Moose, Moose::Util::TypeConstraints, MooseX::Types::Moose, Sub::Exporter

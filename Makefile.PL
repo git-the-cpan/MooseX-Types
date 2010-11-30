@@ -9,10 +9,11 @@ license         q{perl};
 author          q{Robert "phaylon" Sedlacek <rs@474.at>};
 all_from        q{lib/MooseX/Types.pm};
 
-build_requires  q{Test::More},                  '0.80';
+build_requires  q{Test::More},                  '0.88';
 build_requires  q{FindBin},                     0;
 build_requires  q{Test::Moose},                 0;
-build_requires  q{Test::Exception},             0;
+build_requires  q{Test::Fatal},                 0;
+build_requires  q{Test::Requires},              0;
 
 requires        q{Moose},                       '1.06';
 requires        q{Sub::Install},                '0.924';
@@ -21,6 +22,8 @@ requires        q{Carp},                        0;
 requires        q{Carp::Clan},                  '6.00';
 requires        q{Scalar::Util},                '1.19';
 requires        q{Sub::Name},                   0;
+
+add_metadata( x_authority => 'cpan:PHAYLON' );
 
 if (can_use('MooseX::Types::IO') && !can_use('MooseX::Types::IO', '0.03')) {
     requires q{MooseX::Types::IO}, '0.03';

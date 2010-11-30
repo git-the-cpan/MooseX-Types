@@ -20,7 +20,7 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 SYNOPSIS
@@ -152,7 +152,7 @@ return a false value if the type could not be coerced.
 
 B<Important Note>: This handler will only be exported for types that can
 do type coercion. This has the advantage that a coercion to a type that
-cannot hasn't defined any coercions will lead to a compile-time error.
+has not defined any coercions will lead to a compile-time error.
 
 =head1 LIBRARY DEFINITION
 
@@ -527,7 +527,7 @@ Due to this stringification, the following will NOT work as you might think:
 
   subtype StrOrArrayRef => as Str|ArrayRef;
   
-The 'StrOrArrayRef' will have it's stringification activated this causes the
+The 'StrOrArrayRef' will have its stringification activated this causes the
 subtype to not be created.  Since the bareword type constraints are not strings
 you really should not try to treat them that way.  You will have to use the ','
 operator instead.  The author's of this package realize that all the L<Moose>
@@ -571,7 +571,15 @@ This is a workaround and I am exploring how to make these modules work better
 together.  I realize this workaround will lead a lot of duplication in your
 export declarations and will be onerous for large type libraries.  Patches and
 detailed test cases welcome. See the tests directory for a start on this.
-    
+
+=head1 COMBINING TYPE LIBRARIES
+
+You may want to combine a set of types for your application with other type
+libraries, like L<MooseX::Types::Moose> or L<MooseX::Types::Common::String>.
+
+The L<MooseX::Types::Combine> module provides a simple API for combining a set
+of type libraries together.
+
 =head1 SEE ALSO
 
 L<Moose>, 

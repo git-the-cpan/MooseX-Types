@@ -35,6 +35,7 @@ t/20_union_with_string_type.t
 t/21_coerce_parameterized_types.t
 t/lib/Combined.pm
 t/lib/DecoratorLibrary.pm
+t/lib/Empty.pm
 t/lib/IntrospectTypeExports.pm
 t/lib/SubExporterCompatibility.pm
 t/lib/TestLibrary.pm
