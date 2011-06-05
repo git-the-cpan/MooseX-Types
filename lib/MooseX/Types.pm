@@ -1,11 +1,10 @@
 package MooseX::Types;
+BEGIN {
+  $MooseX::Types::VERSION = '0.26';
+}
 use Moose;
 
-=head1 NAME
-
-MooseX::Types - Organise your Moose types in libraries
-
-=cut
+# ABSTRACT: Organise your Moose types in libraries
 
 use Moose::Util::TypeConstraints;
 use MooseX::Types::TypeDecorator;
@@ -20,8 +19,164 @@ use Scalar::Util                      'reftype';
 use namespace::clean -except => [qw( meta )];
 
 use 5.008;
-our $VERSION = '0.25';
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
+
+
+sub import {
+    my ($class, %args) = @_;
+    my  $callee = caller;
+
+    # everyone should want this
+    strict->import;
+    warnings->import;
+
+    # inject base class into new library
+    {   no strict 'refs';
+        unshift @{ $callee . '::ISA' }, 'MooseX::Types::Base';
+    }
+
+    # generate predeclared type helpers
+    if (my @orig_declare = @{ $args{ -declare } || [] }) {
+        my ($tags, $declare) = filter_tags @orig_declare;
+        my @to_export;
+
+        for my $type (@$declare) {
+
+            croak "Cannot create a type containing '::' ($type) at the moment"
+                if $type =~ /::/;
+
+            # add type to library and remember to export
+            $callee->add_type($type);
+            push @to_export, $type;
+        }
+
+        $callee->import({ -full => 1, -into => $callee }, @to_export);
+    }
+
+    # run type constraints import
+    Moose::Util::TypeConstraints->import({ into => $callee });
+
+    # override some with versions that check for syntax errors
+    MooseX::Types::CheckedUtilExports->import({ into => $callee });
+
+    1;
+}
+
+
+sub type_export_generator {
+    my ($class, $type, $name) = @_;
+    
+    ## Return an anonymous subroutine that will generate the proxied type
+    ## constraint for you.
+
+    return subname "__TYPE__::$name" => sub {
+        my $type_constraint = $class->create_base_type_constraint($name);
+
+        if(defined(my $params = shift @_)) {
+            ## We currently only allow a TC to accept a single, ArrayRef
+            ## parameter, as in HashRef[Int], where [Int] is what's inside the
+            ## ArrayRef passed.
+            if(reftype $params eq 'ARRAY') {
+                $type_constraint = $class->create_arged_type_constraint($name, @$params);
+            } elsif(!defined $type_constraint) {
+                croak "Syntax error in type definition (did you forget a comma"
+                    . " after $type?)";
+            } else {
+                croak "Argument must be an ArrayRef to create a parameterized "
+                    . "type, Eg.: ${type}[Int]. Got: ".ref($params)."."
+            }
+        }
+
+        $type_constraint = defined($type_constraint) ? $type_constraint
+         : MooseX::Types::UndefinedType->new($name);
+         
+        my $type_decorator = $class->create_type_decorator($type_constraint);
+        
+        ## If there are additional args, that means it's probably stuff that
+        ## needs to be returned to the subtype.  Not an ideal solution here but
+        ## doesn't seem to cause trouble.
+        
+        if(@_) {
+            return ($type_decorator, @_);
+        } else {
+            return $type_decorator;
+        }
+    };
+}
+
+
+sub create_arged_type_constraint {
+    my ($class, $name, @args) = @_;  
+    my $type_constraint = Moose::Util::TypeConstraints::find_or_create_type_constraint("$name");
+    my $parameterized = $type_constraint->parameterize(@args);
+    # It's obnoxious to have to parameterize before looking for the TC, but the
+    # alternative is to hard-code the assumption that the name is
+    # "$name[$args[0]]", which would be worse.
+    # This breaks MXMS, unfortunately, which relies on things like Tuple[...]
+    # creating new type objects each time.
+    # if (my $existing =
+    #     Moose::Util::TypeConstraints::find_type_constraint($parameterized->name)) {
+    #     return $existing;
+    # }
+    # Moose::Util::TypeConstraints::register_type_constraint($parameterized);
+    return $parameterized;
+}
+
+
+sub create_base_type_constraint {
+    my ($class, $name) = @_;
+    return find_type_constraint($name);
+}
+
+
+sub create_type_decorator {
+    my ($class, $type_constraint) = @_;
+    return MooseX::Types::TypeDecorator->new($type_constraint);
+}
+
+
+sub coercion_export_generator {
+    my ($class, $type, $full, $undef_msg) = @_;
+    return sub {
+        my ($value) = @_;
+
+        # we need a type object
+        my $tobj = find_type_constraint($full) or croak $undef_msg;
+        my $return = $tobj->coerce($value);
+
+        # non-successful coercion returns false
+        return unless $tobj->check($return);
+
+        return $return;
+    }
+}
+
+
+sub check_export_generator {
+    my ($class, $type, $full, $undef_msg) = @_;
+    return sub {
+        my ($value) = @_;
+
+        # we need a type object
+        my $tobj = find_type_constraint($full) or croak $undef_msg;
+
+        return $tobj->check($value);
+    }
+}
+
+
+1;
+
+__END__
+=pod
+
+=head1 NAME
+
+MooseX::Types - Organise your Moose types in libraries
+
+=head1 VERSION
+
+version 0.26
 
 =head1 SYNOPSIS
 
@@ -30,23 +185,27 @@ my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
   package MyLibrary;
 
   # predeclare our own types
-  use MooseX::Types 
-    -declare => [qw(
-        PositiveInt NegativeInt
-        ArrayRefOfPositiveInt ArrayRefOfAtLeastThreeNegativeInts
-        LotsOfInnerConstraints StrOrArrayRef
-	MyDateTime
-    )];
+  use MooseX::Types -declare => [
+      qw(
+          PositiveInt
+          NegativeInt
+          ArrayRefOfPositiveInt
+          ArrayRefOfAtLeastThreeNegativeInts
+          LotsOfInnerConstraints
+          StrOrArrayRef
+          MyDateTime
+          )
+  ];
 
   # import builtin types
   use MooseX::Types::Moose qw/Int HashRef/;
 
   # type definition.
-  subtype PositiveInt, 
-      as Int, 
+  subtype PositiveInt,
+      as Int,
       where { $_ > 0 },
       message { "Int is not larger than 0" };
-  
+
   subtype NegativeInt,
       as Int,
       where { $_ < 0 },
@@ -58,19 +217,19 @@ my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
           via { 1 };
 
   # with parameterized constraints.
-  
+
   subtype ArrayRefOfPositiveInt,
     as ArrayRef[PositiveInt];
-    
+
   subtype ArrayRefOfAtLeastThreeNegativeInts,
     as ArrayRef[NegativeInt],
     where { scalar(@$_) > 2 };
 
   subtype LotsOfInnerConstraints,
     as ArrayRef[ArrayRef[HashRef[Int]]];
-    
+
   # with TypeConstraint Unions
-  
+
   subtype StrOrArrayRef,
     as Str|ArrayRef;
 
@@ -118,41 +277,30 @@ my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 =head1 DESCRIPTION
 
-The types provided with L<Moose> are by design global. This package helps
-you to organise and selectively import your own and the built-in types in
-libraries. As a nice side effect, it catches typos at compile-time too.
+The type system provided by Moose effectively makes all of its builtin type
+global, as are any types you declare with Moose. This means that every module
+that declares a type named "PositiveInt" is sharing the same type object. This
+can be a problem when different parts of the code base want to use the same
+name for different things.
 
-However, the main reason for this module is to provide an easy way to not
-have conflicts with your type names, since the internal fully qualified
-names of the types will be prefixed with the library's name.
+This package lets you declare types using short names, but behind the scenes
+it namespaces all your type declarations, effectively prevent name clashes
+between packages.
 
-This module will also provide you with some helper functions to make it 
-easier to use Moose types in your code.
+This is done by creating a type library module like C<MyApp::Types> and then
+importing types from that module into other modules.
 
-String type names will produce a warning, unless it's for a C<class_type> or
-C<role_type> declared within the library, or a fully qualified name like
-C<'MyTypeLibrary::Foo'>.
+As a side effect, the declaration mechanism allows you to write type names as
+barewords (really function calls), which catches typos in names at compile
+time rather than run time.
 
-=head1 TYPE HANDLER FUNCTIONS
+This module also provides some helper functions for using Moose types outside
+of attribute declarations.
 
-=head2 $type
-
-A constant with the name of your type. It contains the type's fully
-qualified name. Takes no value, as all constants.
-
-=head2 is_$type
-
-This handler takes a value and tests if it is a valid value for this
-C<$type>. It will return true or false.
-
-=head2 to_$type
-
-A handler that will take a value and coerce it into the C<$type>. It will
-return a false value if the type could not be coerced.
-
-B<Important Note>: This handler will only be exported for types that can
-do type coercion. This has the advantage that a coercion to a type that
-has not defined any coercions will lead to a compile-time error.
+If you mix string-based names with types created by this module, it will warn,
+with a few exceptions. If you are declaring a C<class_type()> or
+c<role_type()> within your type library, or if you use a fully qualified name
+like C<"MyApp::Foo">.
 
 =head1 LIBRARY DEFINITION
 
@@ -206,6 +354,27 @@ around L<Sub::Exporter>. This means you can do something like this:
   use MyLibrary TypeA => { -as => 'MyTypeA' },
                 TypeB => { -as => 'MyTypeB' };
 
+=head1 TYPE HANDLER FUNCTIONS
+
+=head2 $type
+
+A constant with the name of your type. It contains the type's fully
+qualified name. Takes no value, as all constants.
+
+=head2 is_$type
+
+This handler takes a value and tests if it is a valid value for this
+C<$type>. It will return true or false.
+
+=head2 to_$type
+
+A handler that will take a value and coerce it into the C<$type>. It will
+return a false value if the type could not be coerced.
+
+B<Important Note>: This handler will only be exported for types that can
+do type coercion. This has the advantage that a coercion to a type that
+has not defined any coercions will lead to a compile-time error.
+
 =head1 WRAPPING A LIBRARY
 
 You can define your own wrapper subclasses to manipulate the behaviour
@@ -241,8 +410,7 @@ with this:
   ...
   1;
 
-The C<Moose> library name is a special shortcut for 
-L<MooseX::Types::Moose>.
+The C<Moose> library name is a special shortcut for L<MooseX::Types::Moose>.
 
 =head2 Generator methods you can overload
 
@@ -250,8 +418,7 @@ L<MooseX::Types::Moose>.
 
 =item type_export_generator( $short, $full )
 
-Creates a closure returning the type's L<Moose::Meta::TypeConstraint> 
-object. 
+Creates a closure returning the type's L<Moose::Meta::TypeConstraint> object.
 
 =item check_export_generator( $short, $full, $undef_message )
 
@@ -293,7 +460,7 @@ Which validates things like:
 
     {key=>'value'};
     {key=>{subkey1=>'value', subkey2=>'value'}}
-    
+
 And so on.  This feature is new and there may be lurking bugs so don't be afraid
 to hunt me down with patches and test cases if you have trouble.
 
@@ -303,15 +470,15 @@ L<MooseX::Types> uses L<MooseX::Types::TypeDecorator> to do some overloading
 which generally allows you to easily create union types:
 
   subtype StrOrArrayRef,
-    as Str|ArrayRef;    
+      as Str|ArrayRef;
 
 As with parameterized constrains, this overloading extends to modules using the
 types you define in a type library.
 
-    use Moose;
-    use MooseX::Types::Moose qw(HashRef Int);
-    
-    has 'attr' => (isa=>HashRef|Int);
+  use Moose;
+  use MooseX::Types::Moose qw(HashRef Int);
+
+  has 'attr' => ( isa => HashRef | Int );
 
 And everything should just work as you'd think.
 
@@ -319,194 +486,42 @@ And everything should just work as you'd think.
 
 =head2 import
 
-Installs the L<MooseX::Types::Base> class into the caller and 
-exports types according to the specification described in 
-L</"LIBRARY DEFINITION">. This will continue to 
-L<Moose::Util::TypeConstraints>' C<import> method to export helper
-functions you will need to declare your types.
-
-=cut
-
-sub import {
-    my ($class, %args) = @_;
-    my  $callee = caller;
-
-    # everyone should want this
-    strict->import;
-    warnings->import;
-
-    # inject base class into new library
-    {   no strict 'refs';
-        unshift @{ $callee . '::ISA' }, 'MooseX::Types::Base';
-    }
-
-    # generate predeclared type helpers
-    if (my @orig_declare = @{ $args{ -declare } || [] }) {
-        my ($tags, $declare) = filter_tags @orig_declare;
-        my @to_export;
-
-        for my $type (@$declare) {
-
-            croak "Cannot create a type containing '::' ($type) at the moment"
-                if $type =~ /::/;
-
-            # add type to library and remember to export
-            $callee->add_type($type);
-            push @to_export, $type;
-        }
-
-        $callee->import({ -full => 1, -into => $callee }, @to_export);
-    }
-
-    # run type constraints import
-    Moose::Util::TypeConstraints->import({ into => $callee });
-
-    # override some with versions that check for syntax errors
-    MooseX::Types::CheckedUtilExports->import({ into => $callee });
-
-    1;
-}
+Installs the L<MooseX::Types::Base> class into the caller and exports types
+according to the specification described in L</"LIBRARY DEFINITION">. This
+will continue to L<Moose::Util::TypeConstraints>' C<import> method to export
+helper functions you will need to declare your types.
 
 =head2 type_export_generator
 
 Generate a type export, e.g. C<Int()>. This will return either a
 L<Moose::Meta::TypeConstraint> object, or alternatively a
-L<MooseX::Types::UndefinedType> object if the type was not
-yet defined.
-
-=cut
-
-sub type_export_generator {
-    my ($class, $type, $name) = @_;
-    
-    ## Return an anonymous subroutine that will generate the proxied type
-    ## constraint for you.
-
-    return subname "__TYPE__::$name" => sub {
-        my $type_constraint = $class->create_base_type_constraint($name);
-
-        if(defined(my $params = shift @_)) {
-            ## We currently only allow a TC to accept a single, ArrayRef
-            ## parameter, as in HashRef[Int], where [Int] is what's inside the
-            ## ArrayRef passed.
-            if(reftype $params eq 'ARRAY') {
-                $type_constraint = $class->create_arged_type_constraint($name, @$params);
-            } elsif(!defined $type_constraint) {
-                croak "Syntax error in type definition (did you forget a comma"
-                    . " after $type?)";
-            } else {
-                croak "Argument must be an ArrayRef to create a parameterized "
-                    . "type, Eg.: ${type}[Int]. Got: ".ref($params)."."
-            }
-        }
-
-        $type_constraint = defined($type_constraint) ? $type_constraint
-         : MooseX::Types::UndefinedType->new($name);
-         
-        my $type_decorator = $class->create_type_decorator($type_constraint);
-        
-        ## If there are additional args, that means it's probably stuff that
-        ## needs to be returned to the subtype.  Not an ideal solution here but
-        ## doesn't seem to cause trouble.
-        
-        if(@_) {
-            return ($type_decorator, @_);
-        } else {
-            return $type_decorator;
-        }
-    };
-}
+L<MooseX::Types::UndefinedType> object if the type was not yet defined.
 
 =head2 create_arged_type_constraint ($name, @args)
 
 Given a String $name with @args find the matching typeconstraint and parameterize
 it with @args.
 
-=cut
-
-sub create_arged_type_constraint {
-    my ($class, $name, @args) = @_;  
-    my $type_constraint = Moose::Util::TypeConstraints::find_or_create_type_constraint("$name");
-    my $parameterized = $type_constraint->parameterize(@args);
-    # It's obnoxious to have to parameterize before looking for the TC, but the
-    # alternative is to hard-code the assumption that the name is
-    # "$name[$args[0]]", which would be worse.
-    # This breaks MXMS, unfortunately, which relies on things like Tuple[...]
-    # creating new type objects each time.
-    # if (my $existing =
-    #     Moose::Util::TypeConstraints::find_type_constraint($parameterized->name)) {
-    #     return $existing;
-    # }
-    # Moose::Util::TypeConstraints::register_type_constraint($parameterized);
-    return $parameterized;
-}
-
 =head2 create_base_type_constraint ($name)
 
-Given a String $name, find the matching typeconstraint.
-
-=cut
-
-sub create_base_type_constraint {
-    my ($class, $name) = @_;
-    return find_type_constraint($name);
-}
+Given a String $name, find the matching type constraint.
 
 =head2 create_type_decorator ($type_constraint)
 
 Given a $type_constraint, return a lightweight L<MooseX::Types::TypeDecorator>
 instance.
 
-=cut
-
-sub create_type_decorator {
-    my ($class, $type_constraint) = @_;
-    return MooseX::Types::TypeDecorator->new($type_constraint);
-}
-
 =head2 coercion_export_generator
 
-This generates a coercion handler function, e.g. C<to_Int($value)>. 
-
-=cut
-
-sub coercion_export_generator {
-    my ($class, $type, $full, $undef_msg) = @_;
-    return sub {
-        my ($value) = @_;
-
-        # we need a type object
-        my $tobj = find_type_constraint($full) or croak $undef_msg;
-        my $return = $tobj->coerce($value);
-
-        # non-successful coercion returns false
-        return unless $tobj->check($return);
-
-        return $return;
-    }
-}
+This generates a coercion handler function, e.g. C<to_Int($value)>.
 
 =head2 check_export_generator
 
 Generates a constraint check closure, e.g. C<is_Int($value)>.
 
-=cut
-
-sub check_export_generator {
-    my ($class, $type, $full, $undef_msg) = @_;
-    return sub {
-        my ($value) = @_;
-
-        # we need a type object
-        my $tobj = find_type_constraint($full) or croak $undef_msg;
-
-        return $tobj->check($value);
-    }
-}
-
 =head1 CAVEATS
 
-The following are lists of gotcha's and their workarounds for developers coming
+The following are lists of gotchas and their workarounds for developers coming
 from the standard string based type constraint names
 
 =head2 Uniqueness
@@ -518,15 +533,15 @@ a type's actual full name.
 
 =head2 Argument separation ('=>' versus ',')
 
-The Perlop manpage has this to say about the '=>' operator: "The => operator is
+The L<perlop> manpage has this to say about the '=>' operator: "The => operator is
 a synonym for the comma, but forces any word (consisting entirely of word
 characters) to its left to be interpreted as a string (as of 5.001). This
 includes words that might otherwise be considered a constant or function call."
 
 Due to this stringification, the following will NOT work as you might think:
 
-  subtype StrOrArrayRef => as Str|ArrayRef;
-  
+  subtype StrOrArrayRef => as Str | ArrayRef;
+
 The 'StrOrArrayRef' will have its stringification activated this causes the
 subtype to not be created.  Since the bareword type constraints are not strings
 you really should not try to treat them that way.  You will have to use the ','
@@ -542,30 +557,28 @@ If you want to use L<Sub::Exporter> with a Type Library, you need to make sure
 you export all the type constraints declared AS WELL AS any additional export
 targets. For example if you do:
 
-    package TypeAndSubExporter; {
-        
-        use MooseX::Types::Moose qw(Str);
-        use MooseX::Types -declare => [qw(MyStr)];
-        use Sub::Exporter -setup => { exports => [ qw(something) ] };
-        
-        subtype MyStr,
-         as Str;
-         
-        sub something {
-            return 1;
-        }    
-        
-    } 1;
-    
-    package Foo; {
-        use TypeAndSubExporter qw(MyStr);
-    } 1;
+  package TypeAndSubExporter;
+
+  use MooseX::Types::Moose qw(Str);
+  use MooseX::Types -declare => [qw(MyStr)];
+  use Sub::Exporter -setup => { exports => [qw(something)] };
+
+  subtype MyStr, as Str;
+
+  sub something {
+      return 1;
+  }
+
+  # then in another module ...
+
+  package Foo;
+  use TypeAndSubExporter qw(MyStr);
 
 You'll get a '"MyStr" is not exported by the TypeAndSubExporter module' error.
 Upi can workaround by:
 
-        - use Sub::Exporter -setup => { exports => [ qw(something) ] };
-        + use Sub::Exporter -setup => { exports => [ qw(something MyStr) ] };
+  - use Sub::Exporter -setup => { exports => [ qw(something) ] };
+  + use Sub::Exporter -setup => { exports => [ qw(something MyStr) ] };
 
 This is a workaround and I am exploring how to make these modules work better
 together.  I realize this workaround will lead a lot of duplication in your
@@ -582,18 +595,12 @@ of type libraries together.
 
 =head1 SEE ALSO
 
-L<Moose>, 
-L<Moose::Util::TypeConstraints>, 
-L<MooseX::Types::Moose>,
+L<Moose>, L<Moose::Util::TypeConstraints>, L<MooseX::Types::Moose>,
 L<Sub::Exporter>
 
 =head1 ACKNOWLEDGEMENTS
 
 Many thanks to the C<#moose> cabal on C<irc.perl.org>.
-
-=head1 AUTHOR
-
-Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 CONTRIBUTORS
 
@@ -607,13 +614,16 @@ hdp: Hans Dieter Pearcey <hdp@cpan.org>
 
 autarch: Dave Rolsky <autarch@urth.org>
 
-=head1 COPYRIGHT & LICENSE
+=head1 AUTHOR
 
-Copyright (c) 2007-2009 Robert Sedlacek <rs@474.at>
+Robert "phaylon" Sedlacek <rs@474.at>
 
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
-1;

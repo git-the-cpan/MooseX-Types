@@ -1,12 +1,9 @@
-=head1 NAME
-
-MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be
-safer for L<MooseX::Types>
-
-=cut
-
 package MooseX::Types::CheckedUtilExports;
-our $VERSION = "0.25";
+BEGIN {
+  $MooseX::Types::CheckedUtilExports::VERSION = '0.26';
+}
+
+#ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
 
 use strict;
 use warnings;
@@ -22,29 +19,6 @@ q{WARNING: String found where Type expected (did you use a => instead of a , ?)}
 
 my @exports = qw/type subtype maybe_type duck_type enum coerce from as/;
 
-=head1 DESCRIPTION
-
-Prevents errors like:
-
-    subtype Foo =>
-    ...
-
-Which should be written as:
-
-    subtype Foo,
-    ...
-
-When using L<MooseX::Types>. Exported by that module.
-
-Exports checked versions of the following subs:
-
-C<type> C<subtype> C<maybe_type> C<duck_type> C<enum> C<coerce> C<from> C<as>
-
-While C<class_type> and C<role_type> will also register the type in the library.
-
-From L<Moose::Util::TypeConstraints>. See that module for syntax.
-
-=cut
 
 for my $export (@exports) {
     no strict 'refs';
@@ -84,19 +58,61 @@ sub role_type ($;$) {
     );
 }
 
+
+1;
+
+__END__
+=pod
+
+=head1 NAME
+
+MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
+
+=head1 VERSION
+
+version 0.26
+
+=head1 DESCRIPTION
+
+Prevents errors like:
+
+    subtype Foo =>
+    ...
+
+Which should be written as:
+
+    subtype Foo,
+    ...
+
+When using L<MooseX::Types>. Exported by that module.
+
+Exports checked versions of the following subs:
+
+C<type> C<subtype> C<maybe_type> C<duck_type> C<enum> C<coerce> C<from> C<as>
+
+While C<class_type> and C<role_type> will also register the type in the library.
+
+From L<Moose::Util::TypeConstraints>. See that module for syntax.
+
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 AUTHOR
-
-See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as perl itself.
 
+=head1 AUTHOR
+
+Robert "phaylon" Sedlacek <rs@474.at>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-1;

@@ -1,36 +1,14 @@
-=head1 NAME
-
-MooseX::Types::Combine - Combine type libraries for exporting
-
-=cut
-
 package MooseX::Types::Combine;
-our $VERSION = "0.25";
+BEGIN {
+  $MooseX::Types::Combine::VERSION = '0.26';
+}
+
+# ABSTRACT: Combine type libraries for exporting
 
 use strict;
 use warnings;
 use Class::MOP ();
 
-=head1 SYNOPSIS
-
-    package CombinedTypeLib;
-
-    use base 'MooseX::Types::Combine';
-
-    __PACKAGE__->provide_types_from(qw/TypeLib1 TypeLib2/);
-
-    package UserClass;
-
-    use CombinedTypeLib qw/Type1 Type2 ... /;
-
-=head1 DESCRIPTION
-
-Allows you to export types from multiple type libraries. 
-
-Libraries on the right side of the type libs passed to L</provide_types_from>
-take precedence over those on the left in case of conflicts.
-
-=cut
 
 sub import {
     my ($class, @types) = @_;
@@ -55,13 +33,6 @@ sub import {
         for keys %from;
 }
 
-=head1 CLASS METHODS
-
-=head2 provide_types_from
-
-Sets or returns a list of type libraries to re-export from.
-
-=cut
 
 sub provide_types_from {
     my ($class, @libs) = @_;
@@ -105,19 +76,64 @@ sub _provided_types {
     %$types;
 }
 
+
+1;
+
+__END__
+=pod
+
+=head1 NAME
+
+MooseX::Types::Combine - Combine type libraries for exporting
+
+=head1 VERSION
+
+version 0.26
+
+=head1 SYNOPSIS
+
+    package CombinedTypeLib;
+
+    use base 'MooseX::Types::Combine';
+
+    __PACKAGE__->provide_types_from(qw/TypeLib1 TypeLib2/);
+
+    package UserClass;
+
+    use CombinedTypeLib qw/Type1 Type2 ... /;
+
+=head1 DESCRIPTION
+
+Allows you to export types from multiple type libraries. 
+
+Libraries on the right side of the type libs passed to L</provide_types_from>
+take precedence over those on the left in case of conflicts.
+
+=head1 CLASS METHODS
+
+=head2 provide_types_from
+
+Sets or returns a list of type libraries to re-export from.
+
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 AUTHOR
-
-See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as perl itself.
 
+=head1 AUTHOR
+
+Robert "phaylon" Sedlacek <rs@474.at>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-1;

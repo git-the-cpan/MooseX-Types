@@ -1,9 +1,12 @@
 package MooseX::Types::TypeDecorator;
-our $VERSION = "0.25";
+BEGIN {
+  $MooseX::Types::TypeDecorator::VERSION = '0.26';
+}
+
+#ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
 
 use strict;
 use warnings;
-
 
 use Carp::Clan qw( ^MooseX::Types );
 use Moose::Util::TypeConstraints ();
@@ -52,24 +55,6 @@ use overload(
     
 );
 
-=head1 NAME
-
-MooseX::Types::TypeDecorator - More flexible access to a Type Constraint
-
-=head1 DESCRIPTION
-
-This is a decorator object that contains an underlying type constraint.  We use
-this to control access to the type constraint and to add some features.
-
-=head1 METHODS
-
-This class defines the following methods.
-
-=head2 new
-
-Old school instantiation
-
-=cut
 
 sub new {
     my $class = shift @_;
@@ -92,11 +77,6 @@ sub new {
     }
 }
 
-=head2 __type_constraint ($type_constraint)
-
-Set/Get the type_constraint.
-
-=cut
 
 sub __type_constraint {
     my $self = shift @_;    
@@ -110,11 +90,6 @@ sub __type_constraint {
     }
 }
 
-=head2 isa
-
-handle $self->isa since AUTOLOAD can't.
-
-=cut
 
 sub isa {
     my ($self, $target) = @_;  
@@ -130,11 +105,6 @@ sub isa {
 }
 
 
-=head2 can
-
-handle $self->can since AUTOLOAD can't.
-
-=cut
 
 sub can {
     my ($self, $target) = @_;
@@ -149,11 +119,6 @@ sub can {
     }
 }
 
-=head2 meta
-
-have meta examine the underlying type constraints
-
-=cut
 
 sub meta {
 	my $self = shift @_;
@@ -162,11 +127,6 @@ sub meta {
 	} 
 }
 
-=head2 _throw_error
-
-properly delegate error messages
-
-=cut
 
 sub _throw_error {
     shift;
@@ -175,21 +135,11 @@ sub _throw_error {
     goto &Moose::throw_error;
 }
 
-=head2 DESTROY
-
-We might need it later
-
-=cut
 
 sub DESTROY {
     return;
 }
 
-=head2 AUTOLOAD
-
-Delegate to the decorator targe
-
-=cut
 
 sub AUTOLOAD {
     
@@ -201,7 +151,6 @@ sub AUTOLOAD {
     ## MooseX::Types::UndefinedType which AUTOLOADs during autovivication.
     
     my $return;
-    
     eval {
         $return = $self->__type_constraint->$method(@args);
     }; if($@) {
@@ -211,15 +160,76 @@ sub AUTOLOAD {
     }
 }
 
-=head1 AUTHOR
 
-See L<MooseX::Types/AUTHOR>.
+1;
+
+__END__
+=pod
+
+=head1 NAME
+
+MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with added features
+
+=head1 VERSION
+
+version 0.26
+
+=head1 DESCRIPTION
+
+This is a decorator object that contains an underlying type constraint.  We use
+this to control access to the type constraint and to add some features.
+
+=head1 METHODS
+
+This class defines the following methods.
+
+=head2 new
+
+Old school instantiation
+
+=head2 __type_constraint ($type_constraint)
+
+Set/Get the type_constraint.
+
+=head2 isa
+
+handle $self->isa since AUTOLOAD can't.
+
+=head2 can
+
+handle $self->can since AUTOLOAD can't.
+
+=head2 meta
+
+have meta examine the underlying type constraints
+
+=head2 _throw_error
+
+properly delegate error messages
+
+=head2 DESTROY
+
+We might need it later
+
+=head2 AUTOLOAD
+
+Delegate to the decorator target.
 
 =head1 LICENSE
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as perl itself.
 
+=head1 AUTHOR
+
+Robert "phaylon" Sedlacek <rs@474.at>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
 
-1;

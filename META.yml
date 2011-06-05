@@ -3,53 +3,20 @@ abstract: 'Organise your Moose types in libraries'
 author:
   - "Robert \"phaylon\" Sedlacek <rs@474.at>"
 build_requires:
-  ExtUtils::MakeMaker: 6.42
   FindBin: 0
   Test::Fatal: 0
   Test::Moose: 0
   Test::More: 0.88
   Test::Requires: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
-distribution_type: module
-generated_by: 'Module::Install version 1.00'
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200007, CPAN::Meta::Converter version 2.110440'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: MooseX-Types
-no_index:
-  directory:
-    - inc
-    - t
-provides:
-  MooseX::Types:
-    file: lib/MooseX/Types.pm
-    version: 0.25
-  MooseX::Types::Base:
-    file: lib/MooseX/Types/Base.pm
-    version: 0.25
-  MooseX::Types::CheckedUtilExports:
-    file: lib/MooseX/Types/CheckedUtilExports.pm
-    version: 0.25
-  MooseX::Types::Combine:
-    file: lib/MooseX/Types/Combine.pm
-    version: 0.25
-  MooseX::Types::Moose:
-    file: lib/MooseX/Types/Moose.pm
-    version: 0.25
-  MooseX::Types::TypeDecorator:
-    file: lib/MooseX/Types/TypeDecorator.pm
-    version: 0.25
-  MooseX::Types::UndefinedType:
-    file: lib/MooseX/Types/UndefinedType.pm
-    version: 0.25
-  MooseX::Types::Util:
-    file: lib/MooseX/Types/Util.pm
-    version: 0.25
-  MooseX::Types::Wrapper:
-    file: lib/MooseX/Types/Wrapper.pm
-    version: 0.25
 requires:
   Carp: 0
   Carp::Clan: 6.00
@@ -58,8 +25,8 @@ requires:
   Sub::Install: 0.924
   Sub::Name: 0
   namespace::clean: 0.08
-  perl: 5.8.0
+  perl: v5.8.0
 resources:
-  license: http://dev.perl.org/licenses/
-version: 0.25
-x_authority: cpan:PHAYLON
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Courriel
+  repository: git://git.urth.org/Courriel.git
+version: 0.26

@@ -1,11 +1,7 @@
 package MooseX::Types::UndefinedType;
-our $VERSION = "0.25";
-
-=head1 NAME
-
-MooseX::Types::UndefinedType - Represents a not yet defined type
-
-=cut
+BEGIN {
+  $MooseX::Types::UndefinedType::VERSION = '0.26';
+}
 
 use warnings;
 use strict;
@@ -48,6 +44,14 @@ Returns the stored type name.
 sub name {
     return $_[0]->{name};
 }
+
+=head2 can_be_inlined
+
+Always returns false. Needed for compatibility with Moose 2.0100+.
+
+=cut
+
+sub can_be_inlined { 0 }
 
 =head2 __autovivify
 
@@ -101,10 +105,6 @@ L<MooseX::Types::Moose>,
 L<Moose::Util::TypeConstraints>, 
 L<Moose::Meta::TypeConstraint>,
 L<Carp::Clan>
-
-=head1 AUTHOR
-
-See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 

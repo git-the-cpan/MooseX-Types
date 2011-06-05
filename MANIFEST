@@ -1,13 +1,12 @@
-.gitignore
 Changes
-inc/Module/Install.pm
-inc/Module/Install/Base.pm
-inc/Module/Install/Can.pm
-inc/Module/Install/Fetch.pm
-inc/Module/Install/Makefile.pm
-inc/Module/Install/Metadata.pm
-inc/Module/Install/Win32.pm
-inc/Module/Install/WriteAll.pm
+INSTALL
+LICENSE
+MANIFEST
+META.json
+META.yml
+Makefile.PL
+README
+dist.ini
 lib/MooseX/Types.pm
 lib/MooseX/Types/Base.pm
 lib/MooseX/Types/CheckedUtilExports.pm
@@ -17,10 +16,6 @@ lib/MooseX/Types/TypeDecorator.pm
 lib/MooseX/Types/UndefinedType.pm
 lib/MooseX/Types/Util.pm
 lib/MooseX/Types/Wrapper.pm
-Makefile.PL
-MANIFEST			This list of files
-META.yml
-README
 t/10_moose-types.t
 t/11_library-definition.t
 t/12_wrapper-definition.t
@@ -43,3 +38,6 @@ t/lib/TestLibrary2.pm
 t/lib/TestNamespaceSep.pm
 t/lib/TestWrapper.pm
 t/regressions/01-is_subtype_of.t
+t/release-pod-coverage.t
+t/release-pod-spell.t
+t/release-pod-syntax.t

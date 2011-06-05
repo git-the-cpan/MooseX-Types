@@ -1,11 +1,10 @@
-=head1 NAME
-
-MooseX::Types::Wrapper - Wrap exports from a library
-
-=cut
-
 package MooseX::Types::Wrapper;
-our $VERSION = "0.25";
+BEGIN {
+  $MooseX::Types::Wrapper::VERSION = '0.26';
+}
+
+#ABSTRACT: Wrap exports from a library
+
 use Moose;
 
 use Carp::Clan      qw( ^MooseX::Types );
@@ -15,15 +14,6 @@ use namespace::clean -except => [qw( meta )];
 
 extends 'MooseX::Types';
 
-=head1 DESCRIPTION
-
-See L<MooseX::Types/SYNOPSIS> for detailed usage.
-
-=head1 METHODS
-
-=head2 import
-
-=cut
 
 sub import {
     my ($class, @args) = @_;
@@ -48,17 +38,45 @@ sub import {
 
 1;
 
+
+__END__
+=pod
+
+=head1 NAME
+
+MooseX::Types::Wrapper - Wrap exports from a library
+
+=head1 VERSION
+
+version 0.26
+
+=head1 DESCRIPTION
+
+See L<MooseX::Types/SYNOPSIS> for detailed usage.
+
+=head1 METHODS
+
+=head2 import
+
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 AUTHOR
-
-See L<MooseX::Types/AUTHOR>.
 
 =head1 LICENSE
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as perl itself.
 
+=head1 AUTHOR
+
+Robert "phaylon" Sedlacek <rs@474.at>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
