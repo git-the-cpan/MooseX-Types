@@ -1,6 +1,6 @@
 package MooseX::Types;
 BEGIN {
-  $MooseX::Types::VERSION = '0.26';
+  $MooseX::Types::VERSION = '0.27';
 }
 use Moose;
 
@@ -176,7 +176,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.26
+version 0.27
 
 =head1 SYNOPSIS
 

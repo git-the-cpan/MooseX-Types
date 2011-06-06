@@ -46,6 +46,7 @@ caelum
 documention
 gotchas
 hdp
+inline
 isa
 jnapiorkowski
 namespaces
