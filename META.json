@@ -4,7 +4,7 @@
       "Robert \"phaylon\" Sedlacek <rs@474.at>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200007, CPAN::Meta::Converter version 2.110440",
+   "generated_by" : "Dist::Zilla version 4.200012, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "perl_5"
    ],
@@ -44,15 +44,15 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "mailto" : "bug-courriel@rt.cpan.org",
-         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Courriel"
+         "mailto" : "bug-moosex-types@rt.cpan.org",
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-Types"
       },
       "repository" : {
          "type" : "git",
-         "url" : "git://git.urth.org/Courriel.git",
-         "web" : "http://git.urth.org/Courriel.git"
+         "url" : "git://git.moose.perl.org/MooseX-Types.git",
+         "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/MooseX-Types.git;a=summary"
       }
    },
-   "version" : "0.27"
+   "version" : "0.28"
 }
 

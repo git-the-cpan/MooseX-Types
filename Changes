@@ -1,5 +1,10 @@
 Revision history for MooseX-Types
 
+0.28    2011-08-02
+
+        - Fixed git and bug tracking info in META.{yml,json}. Reported by
+          Petter Rabbitson. (Dave Rolsky)
+
 0.27    2011-06-06
         - A better fix for type constraint changes in Moose 2.0100. (doy)
 

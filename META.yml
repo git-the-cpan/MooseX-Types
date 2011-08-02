@@ -11,7 +11,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200007, CPAN::Meta::Converter version 2.110440'
+generated_by: 'Dist::Zilla version 4.200012, CPAN::Meta::Converter version 2.110930'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -27,6 +27,6 @@ requires:
   namespace::clean: 0.08
   perl: v5.8.0
 resources:
-  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Courriel
-  repository: git://git.urth.org/Courriel.git
-version: 0.27
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-Types
+  repository: git://git.moose.perl.org/MooseX-Types.git
+version: 0.28
