@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
-BEGIN {
-  $MooseX::Types::Moose::VERSION = '0.28';
+{
+  $MooseX::Types::Moose::VERSION = '0.29';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -35,22 +35,22 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.28
+version 0.29
 
 =head1 SYNOPSIS
 
   package Foo;
   use Moose;
-  use MooseX::Types::Moose qw( Int Str );
+  use MooseX::Types::Moose qw( ArrayRef Int Str );
   use Carp qw( croak );
 
   has 'name',
     is  => 'rw',
     isa => Str;
 
-  has 'id',
+  has 'ids',
     is  => 'rw',
-    isa => Int;
+    isa => ArrayRef[Int];
 
   sub add {
       my ($self, $x, $y) = @_;
