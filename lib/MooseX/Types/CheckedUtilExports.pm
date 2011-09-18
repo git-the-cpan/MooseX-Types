@@ -1,6 +1,6 @@
 package MooseX::Types::CheckedUtilExports;
 {
-  $MooseX::Types::CheckedUtilExports::VERSION = '0.29';
+  $MooseX::Types::CheckedUtilExports::VERSION = '0.30';
 }
 
 #ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
@@ -70,7 +70,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.29
+version 0.30
 
 =head1 DESCRIPTION
 

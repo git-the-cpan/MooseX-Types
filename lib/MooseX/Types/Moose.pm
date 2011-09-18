@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
 {
-  $MooseX::Types::Moose::VERSION = '0.29';
+  $MooseX::Types::Moose::VERSION = '0.30';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -35,7 +35,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.29
+version 0.30
 
 =head1 SYNOPSIS
 

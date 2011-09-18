@@ -1,6 +1,6 @@
 package MooseX::Types::TypeDecorator;
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.29';
+  $MooseX::Types::TypeDecorator::VERSION = '0.30';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -172,7 +172,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.29
+version 0.30
 
 =head1 DESCRIPTION
 
