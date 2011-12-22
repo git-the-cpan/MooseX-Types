@@ -1,6 +1,6 @@
 package MooseX::Types::Combine;
 {
-  $MooseX::Types::Combine::VERSION = '0.30';
+  $MooseX::Types::Combine::VERSION = '0.31';
 }
 
 # ABSTRACT: Combine type libraries for exporting
@@ -15,6 +15,12 @@ sub import {
     my $caller = caller;
 
     my %types = $class->_provided_types;
+
+    if ( grep { $_ eq ':all' } @types ) {
+        $_->import( { -into => $caller }, q{:all} )
+            for $class->provide_types_from;
+        return;
+    }
 
     my %from;
     for my $type (@types) {
@@ -88,7 +94,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.30
+version 0.31
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package MooseX::Types::Wrapper;
 {
-  $MooseX::Types::Wrapper::VERSION = '0.30';
+  $MooseX::Types::Wrapper::VERSION = '0.31';
 }
 
 #ABSTRACT: Wrap exports from a library
@@ -48,7 +48,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.30
+version 0.31
 
 =head1 DESCRIPTION
 
