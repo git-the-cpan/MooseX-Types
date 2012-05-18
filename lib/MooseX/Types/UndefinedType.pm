@@ -1,6 +1,6 @@
 package MooseX::Types::UndefinedType;
 {
-  $MooseX::Types::UndefinedType::VERSION = '0.33';
+  $MooseX::Types::UndefinedType::VERSION = '0.34';
 }
 
 use warnings;
