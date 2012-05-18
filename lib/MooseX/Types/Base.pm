@@ -1,6 +1,6 @@
 package MooseX::Types::Base;
 {
-  $MooseX::Types::Base::VERSION = '0.31';
+  $MooseX::Types::Base::VERSION = '0.32';
 }
 use Moose;
 
@@ -209,7 +209,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.31
+version 0.32
 
 =head1 DESCRIPTION
 
@@ -286,7 +286,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
 {
-  $MooseX::Types::Moose::VERSION = '0.31';
+  $MooseX::Types::Moose::VERSION = '0.32';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -35,7 +35,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.31
+version 0.32
 
 =head1 SYNOPSIS
 
@@ -91,7 +91,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

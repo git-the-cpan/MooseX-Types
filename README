@@ -1,11 +1,11 @@
 
 
 This archive contains the distribution MooseX-Types,
-version 0.31:
+version 0.32:
 
   Organise your Moose types in libraries
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

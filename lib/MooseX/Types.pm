@@ -1,6 +1,6 @@
 package MooseX::Types;
 {
-  $MooseX::Types::VERSION = '0.31';
+  $MooseX::Types::VERSION = '0.32';
 }
 use Moose;
 
@@ -24,7 +24,7 @@ my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
 
 sub import {
     my ($class, %args) = @_;
-    my  $callee = caller;
+    my  $caller = caller;
 
     # everyone should want this
     strict->import;
@@ -32,7 +32,7 @@ sub import {
 
     # inject base class into new library
     {   no strict 'refs';
-        unshift @{ $callee . '::ISA' }, 'MooseX::Types::Base';
+        unshift @{ $caller . '::ISA' }, 'MooseX::Types::Base';
     }
 
     # generate predeclared type helpers
@@ -46,18 +46,18 @@ sub import {
                 if $type =~ /::/;
 
             # add type to library and remember to export
-            $callee->add_type($type);
+            $caller->add_type($type);
             push @to_export, $type;
         }
 
-        $callee->import({ -full => 1, -into => $callee }, @to_export);
+        $caller->import({ -full => 1, -into => $caller }, @to_export);
     }
 
     # run type constraints import
-    Moose::Util::TypeConstraints->import({ into => $callee });
+    Moose::Util::TypeConstraints->import({ into => $caller });
 
     # override some with versions that check for syntax errors
-    MooseX::Types::CheckedUtilExports->import({ into => $callee });
+    MooseX::Types::CheckedUtilExports->import({ into => $caller });
 
     1;
 }
@@ -176,7 +176,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.31
+version 0.32
 
 =head1 SYNOPSIS
 
@@ -299,7 +299,7 @@ of attribute declarations.
 
 If you mix string-based names with types created by this module, it will warn,
 with a few exceptions. If you are declaring a C<class_type()> or
-c<role_type()> within your type library, or if you use a fully qualified name
+C<role_type()> within your type library, or if you use a fully qualified name
 like C<"MyApp::Foo">.
 
 =head1 LIBRARY DEFINITION
@@ -620,7 +620,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

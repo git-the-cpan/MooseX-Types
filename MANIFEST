@@ -28,6 +28,7 @@ t/18_combined_libs.t
 t/19_typelib_with_role.t
 t/20_union_with_string_type.t
 t/21_coerce_parameterized_types.t
+t/22_class_type.t
 t/lib/Combined.pm
 t/lib/DecoratorLibrary.pm
 t/lib/Empty.pm

@@ -1,6 +1,6 @@
 package MooseX::Types::Wrapper;
 {
-  $MooseX::Types::Wrapper::VERSION = '0.31';
+  $MooseX::Types::Wrapper::VERSION = '0.32';
 }
 
 #ABSTRACT: Wrap exports from a library
@@ -48,7 +48,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.31
+version 0.32
 
 =head1 DESCRIPTION
 
@@ -73,7 +73,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

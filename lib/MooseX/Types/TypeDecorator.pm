@@ -1,6 +1,6 @@
 package MooseX::Types::TypeDecorator;
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.31';
+  $MooseX::Types::TypeDecorator::VERSION = '0.32';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -57,7 +57,11 @@ use overload(
 
 
 sub new {
-    my $class = shift @_;
+    my $proto = shift;
+    if (ref($proto)) {
+        return $proto->_try_delegate('new', @_);
+    }
+    my $class = $proto;
     if(my $arg = shift @_) {
         if(blessed $arg && $arg->isa('Moose::Meta::TypeConstraint')) {
             return bless {'__type_constraint'=>$arg}, $class;
@@ -92,40 +96,14 @@ sub __type_constraint {
 
 
 sub isa {
-    my ($self, $target) = @_;  
-    if(defined $target) {
-    	if(blessed $self) {
-    		return $self->__type_constraint->isa($target);
-    	} else {
-    		return;
-    	}
-    } else {
-        return;
-    }
+  my $self = shift;
+  return
+    $self->__type_constraint->isa(@_)
+    || $self->_try_delegate('isa', @_);
 }
 
 
-
-sub can {
-    my ($self, $target) = @_;
-    if(defined $target) {
-    	if(blessed $self) {
-    		return $self->__type_constraint->can($target);
-    	} else {
-    		return;
-    	}
-    } else {
-        return;
-    }
-}
-
-
-sub meta {
-	my $self = shift @_;
-	if(blessed $self) {
-		return $self->__type_constraint->meta;
-	} 
-}
+sub can { shift->_try_delegate('can', @_) }
 
 
 sub _throw_error {
@@ -142,22 +120,35 @@ sub DESTROY {
 
 
 sub AUTOLOAD {
-    
     my ($self, @args) = @_;
     my ($method) = (our $AUTOLOAD =~ /([^:]+)$/);
     
     ## We delegate with this method in an attempt to support a value of
     ## __type_constraint which is also AUTOLOADing, in particular the class
     ## MooseX::Types::UndefinedType which AUTOLOADs during autovivication.
-    
-    my $return;
-    eval {
-        $return = $self->__type_constraint->$method(@args);
-    }; if($@) {
-        __PACKAGE__->_throw_error($@);
-    } else {
-        return $return;
+
+    $self->_try_delegate($method, @args);    
+}
+
+sub _try_delegate {
+    my ($self, $method, @args) = @_;
+    my $tc = $self->__type_constraint;
+    my $class;
+    if ($tc->can('is_subtype_of')) { # Union can't
+        my $search_tc = $tc;
+        while (1) {
+            if ($search_tc->isa('Moose::Meta::TypeConstraint::Class')) {
+                $class = $search_tc->class;
+                last;
+            }
+            $search_tc = $search_tc->parent;
+            last unless $search_tc->is_subtype_of('Object');
+        }
     }
+        
+    my $inv = ($class && $class->can($method)) ? $class : $tc;
+
+    $inv->$method(@args);
 }
 
 
@@ -172,7 +163,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.31
+version 0.32
 
 =head1 DESCRIPTION
 
@@ -193,15 +184,12 @@ Set/Get the type_constraint.
 
 =head2 isa
 
-handle $self->isa since AUTOLOAD can't.
+handle $self->isa since AUTOLOAD can't - this tries both the type constraint,
+and for a class type, the class.
 
 =head2 can
 
 handle $self->can since AUTOLOAD can't.
-
-=head2 meta
-
-have meta examine the underlying type constraints
 
 =head2 _throw_error
 
@@ -213,7 +201,9 @@ We might need it later
 
 =head2 AUTOLOAD
 
-Delegate to the decorator target.
+Delegate to the decorator target, unless this is a class type, in which
+case it will call the class' version of the method if present, and fall
+back to the type's version if not.
 
 =head1 LICENSE
 
@@ -226,7 +216,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
