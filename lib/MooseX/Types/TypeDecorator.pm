@@ -1,6 +1,6 @@
 package MooseX::Types::TypeDecorator;
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.32';
+  $MooseX::Types::TypeDecorator::VERSION = '0.33';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -146,7 +146,15 @@ sub _try_delegate {
         }
     }
         
-    my $inv = ($class && $class->can($method)) ? $class : $tc;
+    my $inv = do {
+      if ($tc->can($method) and $method ne 'new') {
+            $tc
+        } elsif ($class && $class->can($method)) {
+            $class
+        } else {
+            $tc
+        }
+    };
 
     $inv->$method(@args);
 }
@@ -163,7 +171,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.32
+version 0.33
 
 =head1 DESCRIPTION
 
@@ -202,8 +210,9 @@ We might need it later
 =head2 AUTOLOAD
 
 Delegate to the decorator target, unless this is a class type, in which
-case it will call the class' version of the method if present, and fall
-back to the type's version if not.
+case it will try to delegate to the type object, then if that fails try
+the class. The method 'new' is special cased to go to the class first
+if present.
 
 =head1 LICENSE
 

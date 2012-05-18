@@ -1,6 +1,6 @@
 package MooseX::Types::Util;
 {
-  $MooseX::Types::Util::VERSION = '0.32';
+  $MooseX::Types::Util::VERSION = '0.33';
 }
 
 #ABSTRACT: Common utility functions for the distribution
@@ -53,7 +53,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.32
+version 0.33
 
 =head1 DESCRIPTION
 

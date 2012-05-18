@@ -1,6 +1,6 @@
 package MooseX::Types::Combine;
 {
-  $MooseX::Types::Combine::VERSION = '0.32';
+  $MooseX::Types::Combine::VERSION = '0.33';
 }
 
 # ABSTRACT: Combine type libraries for exporting
@@ -94,7 +94,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.32
+version 0.33
 
 =head1 SYNOPSIS
 
