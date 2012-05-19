@@ -1,6 +1,6 @@
 package MooseX::Types::TypeDecorator;
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.34';
+  $MooseX::Types::TypeDecorator::VERSION = '0.35';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -98,12 +98,20 @@ sub __type_constraint {
 sub isa {
   my $self = shift;
   return
-    $self->__type_constraint->isa(@_)
-    || $self->_try_delegate('isa', @_);
+    blessed $self
+      ? $self->__type_constraint->isa(@_)
+      || $self->_try_delegate( 'isa', @_ )
+      : $self->SUPER::isa(@_);
 }
 
 
-sub can { shift->_try_delegate('can', @_) }
+sub can {
+    my $self = shift;
+
+    return blessed $self
+        ? $self->_try_delegate( 'can', @_ )
+        : $self->SUPER::can(@_);
+}
 
 
 sub _throw_error {
@@ -142,7 +150,7 @@ sub _try_delegate {
                 last;
             }
             $search_tc = $search_tc->parent;
-            last unless $search_tc->is_subtype_of('Object');
+            last unless $search_tc && $search_tc->is_subtype_of('Object');
         }
     }
         
@@ -177,7 +185,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.34
+version 0.35
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package MooseX::Types::Base;
 {
-  $MooseX::Types::Base::VERSION = '0.34';
+  $MooseX::Types::Base::VERSION = '0.35';
 }
 use Moose;
 
@@ -209,7 +209,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.34
+version 0.35
 
 =head1 DESCRIPTION
 
