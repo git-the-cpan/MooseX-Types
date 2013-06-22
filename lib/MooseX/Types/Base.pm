@@ -1,6 +1,6 @@
 package MooseX::Types::Base;
 {
-  $MooseX::Types::Base::VERSION = '0.35';
+  $MooseX::Types::Base::VERSION = '0.36';
 }
 use Moose;
 
@@ -33,7 +33,7 @@ sub import {
 
     # determine the wrapper, -into is supported for compatibility reasons
     my $wrapper = $options->{ -wrapper } || 'MooseX::Types';
-    $args[0]->{into} = $options->{ -into } 
+    $args[0]->{into} = $options->{ -into }
         if exists $options->{ -into };
 
     my (%ex_spec, %ex_util);
@@ -47,9 +47,9 @@ sub import {
         my $undef_msg = sprintf($UndefMsg, $type_short, $class);
 
         # the type itself
-        push @{ $ex_spec{exports} }, 
+        push @{ $ex_spec{exports} },
             $type_short,
-            sub { 
+            sub {
                 bless $wrapper->type_export_generator($type_short, $type_full),
                     'MooseX::Types::EXPORTED_TYPE_CONSTRAINT';
             };
@@ -71,13 +71,13 @@ sub import {
 
     # create S:E exporter and increase export level unless specified explicitly
     my $exporter = build_exporter \%ex_spec;
-    $options->{into_level}++ 
+    $options->{into_level}++
         unless $options->{into};
 
     # remember requested symbols to determine what helpers to auto-export
-    my %was_requested = 
-        map  { ($_ => 1) } 
-        grep { not ref } 
+    my %was_requested =
+        map  { ($_ => 1) }
+        grep { not ref }
         @args;
 
     # determine which additional symbols (helpers) to export along
@@ -201,7 +201,12 @@ sub get_registered_role_type {
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -209,19 +214,19 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 DESCRIPTION
 
 You normally won't need to interact with this class by yourself. It is
-merely a collection of functionality that type libraries need to 
+merely a collection of functionality that type libraries need to
 interact with moose and the rest of the L<MooseX::Types> module.
 
 =head1 METHODS
 
 =head2 import
 
-Provides the import mechanism for your library. See 
+Provides the import mechanism for your library. See
 L<MooseX::Types/"LIBRARY USAGE"> for syntax details on this.
 
 =head2 get_type
@@ -286,10 +291,9 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

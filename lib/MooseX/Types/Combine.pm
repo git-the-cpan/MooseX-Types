@@ -1,6 +1,6 @@
 package MooseX::Types::Combine;
 {
-  $MooseX::Types::Combine::VERSION = '0.35';
+  $MooseX::Types::Combine::VERSION = '0.36';
 }
 
 # ABSTRACT: Combine type libraries for exporting
@@ -86,7 +86,15 @@ sub _provided_types {
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -94,7 +102,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 SYNOPSIS
 
@@ -110,7 +118,7 @@ version 0.35
 
 =head1 DESCRIPTION
 
-Allows you to export types from multiple type libraries. 
+Allows you to export types from multiple type libraries.
 
 Libraries on the right side of the type libs passed to L</provide_types_from>
 take precedence over those on the left in case of conflicts.
@@ -136,10 +144,9 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

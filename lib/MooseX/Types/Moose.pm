@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
 {
-  $MooseX::Types::Moose::VERSION = '0.35';
+  $MooseX::Types::Moose::VERSION = '0.36';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -15,8 +15,8 @@ use namespace::clean -except => [qw( meta )];
 
 
 # all available builtin types as short and long name
-my %BuiltIn_Storage 
-  = map { ($_) x 2 } 
+my %BuiltIn_Storage
+  = map { ($_) x 2 }
     Moose::Util::TypeConstraints->list_all_builtin_type_constraints;
 
 
@@ -27,7 +27,12 @@ sub type_storage { \%BuiltIn_Storage }
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -35,7 +40,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 SYNOPSIS
 
@@ -77,7 +82,7 @@ reference containing all built-in L<Moose> types.
 =head1 SEE ALSO
 
 L<MooseX::Types::Moose>,
-L<Moose>, 
+L<Moose>,
 L<Moose::Util::TypeConstraints>
 
 =head1 LICENSE
@@ -91,10 +96,9 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

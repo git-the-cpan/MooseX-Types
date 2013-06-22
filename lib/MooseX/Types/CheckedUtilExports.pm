@@ -1,6 +1,6 @@
 package MooseX::Types::CheckedUtilExports;
 {
-  $MooseX::Types::CheckedUtilExports::VERSION = '0.35';
+  $MooseX::Types::CheckedUtilExports::VERSION = '0.36';
 }
 
 #ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
@@ -62,7 +62,12 @@ sub role_type ($;$) {
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -70,7 +75,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 DESCRIPTION
 
@@ -109,10 +114,9 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,6 +1,6 @@
 package MooseX::Types::Wrapper;
 {
-  $MooseX::Types::Wrapper::VERSION = '0.35';
+  $MooseX::Types::Wrapper::VERSION = '0.36';
 }
 
 #ABSTRACT: Wrap exports from a library
@@ -24,11 +24,11 @@ sub import {
         croak qq($class expects an array reference as import spec)
             unless ref $libraries{ $l } eq 'ARRAY';
 
-        my $library_class 
+        my $library_class
           = ($l eq 'Moose' ? 'MooseX::Types::Moose' : $l );
         Class::MOP::load_class($library_class);
 
-        $library_class->import({ 
+        $library_class->import({
             -into    => scalar(caller),
             -wrapper => $class,
         }, @{ $libraries{ $l } });
@@ -38,9 +38,13 @@ sub import {
 
 1;
 
-
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -48,7 +52,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 DESCRIPTION
 
@@ -73,10 +77,9 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

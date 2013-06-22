@@ -1,6 +1,6 @@
 package MooseX::Types;
 {
-  $MooseX::Types::VERSION = '0.35';
+  $MooseX::Types::VERSION = '0.36';
 }
 use Moose;
 
@@ -65,7 +65,7 @@ sub import {
 
 sub type_export_generator {
     my ($class, $type, $name) = @_;
-    
+
     ## Return an anonymous subroutine that will generate the proxied type
     ## constraint for you.
 
@@ -89,13 +89,13 @@ sub type_export_generator {
 
         $type_constraint = defined($type_constraint) ? $type_constraint
          : MooseX::Types::UndefinedType->new($name);
-         
+
         my $type_decorator = $class->create_type_decorator($type_constraint);
-        
+
         ## If there are additional args, that means it's probably stuff that
         ## needs to be returned to the subtype.  Not an ideal solution here but
         ## doesn't seem to cause trouble.
-        
+
         if(@_) {
             return ($type_decorator, @_);
         } else {
@@ -106,7 +106,7 @@ sub type_export_generator {
 
 
 sub create_arged_type_constraint {
-    my ($class, $name, @args) = @_;  
+    my ($class, $name, @args) = @_;
     my $type_constraint = Moose::Util::TypeConstraints::find_or_create_type_constraint("$name");
     my $parameterized = $type_constraint->parameterize(@args);
     # It's obnoxious to have to parameterize before looking for the TC, but the
@@ -168,7 +168,15 @@ sub check_export_generator {
 1;
 
 __END__
+
 =pod
+
+=encoding utf-8
+
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -176,7 +184,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.35
+version 0.36
 
 =head1 SYNOPSIS
 
@@ -304,7 +312,7 @@ like C<"MyApp::Foo">.
 
 =head1 LIBRARY DEFINITION
 
-A MooseX::Types is just a normal Perl module. Unlike Moose 
+A MooseX::Types is just a normal Perl module. Unlike Moose
 itself, it does not install C<use strict> and C<use warnings> in your
 class by default, so this is up to you.
 
@@ -314,13 +322,13 @@ The only thing a library is required to do is
 
 with C<@types> being a list of types you wish to define in this library.
 This line will install a proper base class in your package as well as the
-full set of L<handlers|/"TYPE HANDLER FUNCTIONS"> for your declared 
+full set of L<handlers|/"TYPE HANDLER FUNCTIONS"> for your declared
 types. It will then hand control over to L<Moose::Util::TypeConstraints>'
 C<import> method to export the functions you will need to declare your
 types.
 
-If you want to use Moose' built-in types (e.g. for subtyping) you will 
-want to 
+If you want to use Moose' built-in types (e.g. for subtyping) you will
+want to
 
   use MooseX::Types::Moose @types;
 
@@ -330,7 +338,7 @@ library which can export all types that come with Moose.
 You will have to define coercions for your types or your library won't
 export a L</to_$type> coercion helper for it.
 
-Note that you currently cannot define types containing C<::>, since 
+Note that you currently cannot define types containing C<::>, since
 exporting would be a problem.
 
 You also don't need to use C<warnings> and C<strict>, since the
@@ -472,7 +480,7 @@ which generally allows you to easily create union types:
   subtype StrOrArrayRef,
       as Str|ArrayRef;
 
-As with parameterized constrains, this overloading extends to modules using the
+As with parameterized constraints, this overloading extends to modules using the
 types you define in a type library.
 
   use Moose;
@@ -545,8 +553,8 @@ Due to this stringification, the following will NOT work as you might think:
 The 'StrOrArrayRef' will have its stringification activated this causes the
 subtype to not be created.  Since the bareword type constraints are not strings
 you really should not try to treat them that way.  You will have to use the ','
-operator instead.  The author's of this package realize that all the L<Moose>
-documention and examples nearly uniformly use the '=>' version of the comma
+operator instead.  The authors of this package realize that all the L<Moose>
+documentation and examples nearly uniformly use the '=>' version of the comma
 operator and this could be an issue if you are converting code.
 
 Patches welcome for discussion.
@@ -575,7 +583,7 @@ targets. For example if you do:
   use TypeAndSubExporter qw(MyStr);
 
 You'll get a '"MyStr" is not exported by the TypeAndSubExporter module' error.
-Upi can workaround by:
+It can be worked around by:
 
   - use Sub::Exporter -setup => { exports => [ qw(something) ] };
   + use Sub::Exporter -setup => { exports => [ qw(something MyStr) ] };
@@ -620,10 +628,75 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut
+=head1 CONTRIBUTORS
 
+=over 4
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Graham Knop <haarg@haarg.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+John Napiorkowski <jjnapiork@cpan.org>
+
+=item *
+
+Justin Hunter <justin.d.hunter@gmail.com>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Kent Fredric <kentfredric@gmail.com>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=item *
+
+Paul Fenwick <pjf@perltraining.com.au>
+
+=item *
+
+Rafael Kitover <rkitover@cpan.org>
+
+=item *
+
+Robert 'phaylon' Sedlacek <phaylon@cpan.org>
+
+=item *
+
+Tomas Doran (t0m) <bobtfish@bobtfish.net>
+
+=item *
+
+matthewt <matthewt@3efe9002-19ed-0310-8735-a98156148065>
+
+=back
+
+=cut
