@@ -1,13 +1,16 @@
 package MooseX::Types::Combine;
+BEGIN {
+  $MooseX::Types::Combine::AUTHORITY = 'cpan:PHAYLON';
+}
 {
-  $MooseX::Types::Combine::VERSION = '0.36';
+  $MooseX::Types::Combine::VERSION = '0.37';
 }
 
 # ABSTRACT: Combine type libraries for exporting
 
 use strict;
 use warnings;
-use Class::MOP ();
+use Module::Runtime 'use_module';
 
 
 sub import {
@@ -64,7 +67,7 @@ sub provide_types_from {
 sub _check_type_lib {
     my ($class, $lib) = @_;
 
-    Class::MOP::load_class($lib);
+    use_module($lib);
 
     die "Cannot use $lib in a combined type library, it does not provide any types"
         unless $lib->can('type_names');
@@ -91,10 +94,7 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -102,7 +102,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 SYNOPSIS
 
@@ -120,7 +120,7 @@ version 0.36
 
 Allows you to export types from multiple type libraries.
 
-Libraries on the right side of the type libs passed to L</provide_types_from>
+Libraries on the right end of the list passed to L</provide_types_from>
 take precedence over those on the left in case of conflicts.
 
 =head1 CLASS METHODS
@@ -144,7 +144,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,7 +1,12 @@
 package MooseX::Types;
-{
-  $MooseX::Types::VERSION = '0.36';
+BEGIN {
+  $MooseX::Types::AUTHORITY = 'cpan:PHAYLON';
 }
+{
+  $MooseX::Types::VERSION = '0.37';
+}
+# git description: v0.36-10-g4fe418e
+
 use Moose;
 
 # ABSTRACT: Organise your Moose types in libraries
@@ -16,7 +21,7 @@ use Carp::Clan                        qw( ^MooseX::Types );
 use Sub::Name;
 use Scalar::Util                      'reftype';
 
-use namespace::clean -except => [qw( meta )];
+use namespace::autoclean;
 
 use 5.008;
 my $UndefMsg = q{Action for type '%s' not yet defined in library '%s'};
@@ -164,9 +169,6 @@ sub check_export_generator {
     }
 }
 
-
-1;
-
 __END__
 
 =pod
@@ -184,7 +186,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 SYNOPSIS
 
@@ -287,7 +289,7 @@ version 0.36
 
 The type system provided by Moose effectively makes all of its builtin type
 global, as are any types you declare with Moose. This means that every module
-that declares a type named "PositiveInt" is sharing the same type object. This
+that declares a type named C<PositiveInt> is sharing the same type object. This
 can be a problem when different parts of the code base want to use the same
 name for different things.
 
@@ -507,7 +509,7 @@ L<MooseX::Types::UndefinedType> object if the type was not yet defined.
 
 =head2 create_arged_type_constraint ($name, @args)
 
-Given a String $name with @args find the matching typeconstraint and parameterize
+Given a String $name with @args find the matching type constraint and parameterize
 it with @args.
 
 =head2 create_base_type_constraint ($name)
@@ -550,7 +552,7 @@ Due to this stringification, the following will NOT work as you might think:
 
   subtype StrOrArrayRef => as Str | ArrayRef;
 
-The 'StrOrArrayRef' will have its stringification activated this causes the
+The C<StrOrArrayRef> type will have its stringification activated -- this causes the
 subtype to not be created.  Since the bareword type constraints are not strings
 you really should not try to treat them that way.  You will have to use the ','
 operator instead.  The authors of this package realize that all the L<Moose>
@@ -582,7 +584,7 @@ targets. For example if you do:
   package Foo;
   use TypeAndSubExporter qw(MyStr);
 
-You'll get a '"MyStr" is not exported by the TypeAndSubExporter module' error.
+You'll get a C<< "MyStr" is not exported by the TypeAndSubExporter module >> error.
 It can be worked around by:
 
   - use Sub::Exporter -setup => { exports => [ qw(something) ] };
@@ -610,25 +612,13 @@ L<Sub::Exporter>
 
 Many thanks to the C<#moose> cabal on C<irc.perl.org>.
 
-=head1 CONTRIBUTORS
-
-jnapiorkowski: John Napiorkowski <jjnapiork@cpan.org>
-
-caelum: Rafael Kitover <rkitover@cpan.org>
-
-rafl: Florian Ragwitz <rafl@debian.org>
-
-hdp: Hans Dieter Pearcey <hdp@cpan.org>
-
-autarch: Dave Rolsky <autarch@urth.org>
-
 =head1 AUTHOR
 
 Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

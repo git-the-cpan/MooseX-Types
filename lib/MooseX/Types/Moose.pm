@@ -1,6 +1,9 @@
 package MooseX::Types::Moose;
+BEGIN {
+  $MooseX::Types::Moose::AUTHORITY = 'cpan:PHAYLON';
+}
 {
-  $MooseX::Types::Moose::VERSION = '0.36';
+  $MooseX::Types::Moose::VERSION = '0.37';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -11,7 +14,7 @@ use strict;
 use MooseX::Types;
 use Moose::Util::TypeConstraints ();
 
-use namespace::clean -except => [qw( meta )];
+use namespace::autoclean;
 
 
 # all available builtin types as short and long name
@@ -32,7 +35,10 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -40,7 +46,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 SYNOPSIS
 
@@ -96,7 +102,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

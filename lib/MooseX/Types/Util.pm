@@ -1,6 +1,9 @@
 package MooseX::Types::Util;
+BEGIN {
+  $MooseX::Types::Util::AUTHORITY = 'cpan:PHAYLON';
+}
 {
-  $MooseX::Types::Util::VERSION = '0.36';
+  $MooseX::Types::Util::VERSION = '0.37';
 }
 
 #ABSTRACT: Common utility functions for the distribution
@@ -50,7 +53,10 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -58,7 +64,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 DESCRIPTION
 
@@ -79,7 +85,7 @@ The second is an array reference containing all other elements.
 
 This function allows you to introspect if a given type export is available
 I<at this point in time>. This means that the C<$package> must have imported
-a typeconstraint with the name C<$name>, and it must be still in its symbol
+a type constraint with the name C<$name>, and it must be still in its symbol
 table.
 
 Two arguments are expected:
@@ -124,7 +130,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

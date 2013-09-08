@@ -1,6 +1,9 @@
 package MooseX::Types::TypeDecorator;
+BEGIN {
+  $MooseX::Types::TypeDecorator::AUTHORITY = 'cpan:PHAYLON';
+}
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.36';
+  $MooseX::Types::TypeDecorator::VERSION = '0.37';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -184,7 +187,10 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -192,7 +198,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 DESCRIPTION
 
@@ -211,9 +217,9 @@ Old school instantiation
 
 Set/Get the type_constraint.
 
-=head2 isa
+=head2 C<isa>
 
-handle $self->isa since AUTOLOAD can't - this tries both the type constraint,
+handle C<< $self->isa >> since C<AUTOLOAD> can't - this tries both the type constraint,
 and for a class type, the class.
 
 =head2 can
@@ -247,7 +253,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

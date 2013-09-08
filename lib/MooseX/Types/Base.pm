@@ -1,6 +1,9 @@
 package MooseX::Types::Base;
+BEGIN {
+  $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
+}
 {
-  $MooseX::Types::Base::VERSION = '0.36';
+  $MooseX::Types::Base::VERSION = '0.37';
 }
 use Moose;
 
@@ -11,7 +14,7 @@ use MooseX::Types::Util             qw( filter_tags );
 use Sub::Exporter                   qw( build_exporter );
 use Moose::Util::TypeConstraints;
 
-use namespace::clean -except => [qw( meta )];
+use namespace::autoclean;
 
 
 my $UndefMsg = q{Unable to find type '%s' in library '%s'};
@@ -206,7 +209,10 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -214,7 +220,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.36
+version 0.37
 
 =head1 DESCRIPTION
 
@@ -291,7 +297,7 @@ Robert "phaylon" Sedlacek <rs@474.at>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Robert "phaylon" Sedlacek.
+This software is copyright (c) 2007 by Robert "phaylon" Sedlacek.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
