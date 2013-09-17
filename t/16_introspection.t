@@ -1,11 +1,9 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
 
-use FindBin;
-use lib "$FindBin::Bin/lib";
+use lib 't/lib';
 
 do {
     package IntrospectionTest;

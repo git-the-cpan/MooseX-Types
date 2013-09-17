@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::UndefinedType::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::UndefinedType::VERSION = '0.37';
+  $MooseX::Types::UndefinedType::VERSION = '0.38';
 }
 
 use warnings;

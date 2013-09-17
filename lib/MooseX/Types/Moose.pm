@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Moose::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::Moose::VERSION = '0.37';
+  $MooseX::Types::Moose::VERSION = '0.38';
 }
 
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
@@ -46,7 +46,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 SYNOPSIS
 

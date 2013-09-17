@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::CheckedUtilExports::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::CheckedUtilExports::VERSION = '0.37';
+  $MooseX::Types::CheckedUtilExports::VERSION = '0.38';
 }
 
 #ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
@@ -81,7 +81,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 DESCRIPTION
 

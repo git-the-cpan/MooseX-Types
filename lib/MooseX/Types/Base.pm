@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::Base::VERSION = '0.37';
+  $MooseX::Types::Base::VERSION = '0.38';
 }
 use Moose;
 
@@ -220,7 +220,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 DESCRIPTION
 

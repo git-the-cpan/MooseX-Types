@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::Wrapper::VERSION = '0.37';
+  $MooseX::Types::Wrapper::VERSION = '0.38';
 }
 
 #ABSTRACT: Wrap exports from a library
@@ -58,7 +58,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 DESCRIPTION
 

@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::TypeDecorator::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.37';
+  $MooseX::Types::TypeDecorator::VERSION = '0.38';
 }
 
 #ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
@@ -25,12 +25,12 @@ use overload(
     # workaround for perl 5.8.5 bug
     '==' => sub { 0+$_[0] == 0+$_[1] },
     '""' => sub {
-    		my $self = shift @_;
-    		if(blessed $self) {
-        		return $self->__type_constraint->name;
-    		} else {
-    			return "$self";
-    		}
+            my $self = shift @_;
+            if(blessed $self) {
+                return $self->__type_constraint->name;
+            } else {
+                return "$self";
+            }
     },
     bool => sub { 1 },
     '|' => sub {
@@ -48,7 +48,7 @@ use overload(
 
         ( scalar @tc == scalar @args)
             || __PACKAGE__->_throw_error(
-			  "one of your type constraints is bad.  Passed: ". join(', ', @args) ." Got: ". join(', ', @tc));
+              "one of your type constraints is bad.  Passed: ". join(', ', @args) ." Got: ". join(', ', @tc));
 
         ( scalar @tc >= 2 )
             || __PACKAGE__->_throw_error("You must pass in at least 2 type names to make a union");
@@ -198,7 +198,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 DESCRIPTION
 

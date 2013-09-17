@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Combine::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::Combine::VERSION = '0.37';
+  $MooseX::Types::Combine::VERSION = '0.38';
 }
 
 # ABSTRACT: Combine type libraries for exporting
@@ -94,7 +94,10 @@ __END__
 
 =encoding utf-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -102,7 +105,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 SYNOPSIS
 

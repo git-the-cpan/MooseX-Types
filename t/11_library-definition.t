@@ -1,10 +1,8 @@
-#!/usr/bin/env perl
 use warnings;
 use strict;
 
 use Test::More;
-use FindBin;
-use lib "$FindBin::Bin/lib";
+use lib 't/lib';
 use TestLibrary qw( NonEmptyStr IntArrayRef ),
                 Foo2Alias => { -as => 'Foo' };
 

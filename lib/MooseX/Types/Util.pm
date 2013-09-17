@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Util::AUTHORITY = 'cpan:PHAYLON';
 }
 {
-  $MooseX::Types::Util::VERSION = '0.37';
+  $MooseX::Types::Util::VERSION = '0.38';
 }
 
 #ABSTRACT: Common utility functions for the distribution
@@ -64,7 +64,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.37
+version 0.38
 
 =head1 DESCRIPTION
 

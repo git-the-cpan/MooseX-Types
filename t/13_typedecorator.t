@@ -1,11 +1,9 @@
-#!/usr/bin/env perl
 use warnings;
 use strict;
 
 use Test::More;
 use Test::Fatal;
-use FindBin;
-use lib "$FindBin::Bin/lib";
+use lib 't/lib';
 
 {
     package Test::MooseX::TypeLibrary::TypeDecorator;
