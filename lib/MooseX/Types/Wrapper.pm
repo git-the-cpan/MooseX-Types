@@ -1,9 +1,9 @@
 package MooseX::Types::Wrapper;
+{
+  $MooseX::Types::Wrapper::VERSION = '0.39';
+}
 BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
-}
-{
-  $MooseX::Types::Wrapper::VERSION = '0.38';
 }
 
 #ABSTRACT: Wrap exports from a library
@@ -45,7 +45,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
 Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
@@ -58,7 +58,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.38
+version 0.39
 
 =head1 DESCRIPTION
 

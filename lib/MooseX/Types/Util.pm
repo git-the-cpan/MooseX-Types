@@ -1,9 +1,9 @@
 package MooseX::Types::Util;
+{
+  $MooseX::Types::Util::VERSION = '0.39';
+}
 BEGIN {
   $MooseX::Types::Util::AUTHORITY = 'cpan:PHAYLON';
-}
-{
-  $MooseX::Types::Util::VERSION = '0.38';
 }
 
 #ABSTRACT: Common utility functions for the distribution
@@ -51,12 +51,9 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -64,7 +61,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.38
+version 0.39
 
 =head1 DESCRIPTION
 

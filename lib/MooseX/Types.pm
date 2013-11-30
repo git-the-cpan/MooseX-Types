@@ -1,12 +1,12 @@
 package MooseX::Types;
+{
+  $MooseX::Types::VERSION = '0.39';
+}
+# git description: v0.38-7-g1597521
+
 BEGIN {
   $MooseX::Types::AUTHORITY = 'cpan:PHAYLON';
 }
-{
-  $MooseX::Types::VERSION = '0.38';
-}
-# git description: v0.37-7-g2f9e325
-
 use Moose;
 
 # ABSTRACT: Organise your Moose types in libraries
@@ -173,7 +173,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
 Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
@@ -186,7 +186,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.38
+version 0.39
 
 =head1 SYNOPSIS
 

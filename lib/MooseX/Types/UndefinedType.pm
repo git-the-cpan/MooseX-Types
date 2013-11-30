@@ -1,9 +1,9 @@
 package MooseX::Types::UndefinedType;
+{
+  $MooseX::Types::UndefinedType::VERSION = '0.39';
+}
 BEGIN {
   $MooseX::Types::UndefinedType::AUTHORITY = 'cpan:PHAYLON';
-}
-{
-  $MooseX::Types::UndefinedType::VERSION = '0.38';
 }
 
 use warnings;

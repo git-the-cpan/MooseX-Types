@@ -69,11 +69,11 @@ matthewt
 lib
 MooseX
 Types
-Combine
-Moose
-UndefinedType
-Base
-Util
-CheckedUtilExports
 TypeDecorator
+UndefinedType
+Util
+Base
+CheckedUtilExports
 Wrapper
+Moose
+Combine

@@ -1,11 +1,14 @@
 Build.PL
+CONTRIBUTING
 Changes
 INSTALL
 LICENSE
 MANIFEST
 META.json
 META.yml
+Makefile.PL
 README
+README.md
 dist.ini
 lib/MooseX/Types.pm
 lib/MooseX/Types/Base.pm
@@ -16,8 +19,7 @@ lib/MooseX/Types/TypeDecorator.pm
 lib/MooseX/Types/UndefinedType.pm
 lib/MooseX/Types/Util.pm
 lib/MooseX/Types/Wrapper.pm
-t/00-check-deps.t
-t/00-compile.t
+t/00-report-prereqs.t
 t/10_moose-types.t
 t/11_library-definition.t
 t/12_wrapper-definition.t
@@ -44,6 +46,7 @@ t/lib/TestNamespaceSep.pm
 t/lib/TestWrapper.pm
 t/regressions/01-is_subtype_of.t
 weaver.ini
+xt/author/00-compile.t
 xt/author/pod-spell.t
 xt/release/changes_has_content.t
 xt/release/cpan-changes.t
@@ -56,4 +59,5 @@ xt/release/no-tabs.t
 xt/release/pod-coverage.t
 xt/release/pod-no404s.t
 xt/release/pod-syntax.t
+xt/release/portability.t
 xt/release/test-version.t
