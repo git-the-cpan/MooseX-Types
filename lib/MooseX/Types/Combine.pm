@@ -1,6 +1,6 @@
 package MooseX::Types::Combine;
 {
-  $MooseX::Types::Combine::VERSION = '0.39';
+  $MooseX::Types::Combine::VERSION = '0.40';
 }
 BEGIN {
   $MooseX::Types::Combine::AUTHORITY = 'cpan:PHAYLON';
@@ -105,7 +105,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 SYNOPSIS
 

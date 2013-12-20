@@ -1,8 +1,8 @@
 package MooseX::Types;
 {
-  $MooseX::Types::VERSION = '0.39';
+  $MooseX::Types::VERSION = '0.40';
 }
-# git description: v0.38-7-g1597521
+# git description: v0.39-2-g8a747fb
 
 BEGIN {
   $MooseX::Types::AUTHORITY = 'cpan:PHAYLON';
@@ -186,7 +186,7 @@ MooseX::Types - Organise your Moose types in libraries
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 SYNOPSIS
 

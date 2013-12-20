@@ -1,6 +1,6 @@
 package MooseX::Types::Base;
 {
-  $MooseX::Types::Base::VERSION = '0.39';
+  $MooseX::Types::Base::VERSION = '0.40';
 }
 BEGIN {
   $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
@@ -12,6 +12,7 @@ use Moose;
 use Carp::Clan                      qw( ^MooseX::Types );
 use MooseX::Types::Util             qw( filter_tags );
 use Sub::Exporter                   qw( build_exporter );
+use Sub::Name ();
 use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
@@ -71,6 +72,9 @@ sub import {
             sub { $wrapper->coercion_export_generator($type_short, $type_full, $undef_msg) };
         $ex_util{ $type_short }{to}++;  # shortcut to remember this exists
     }
+
+    # ensure types are installed into the type library's namespace
+    $ex_spec{installer} = \&_my_method_installer;
 
     # create S:E exporter and increase export level unless specified explicitly
     my $exporter = build_exporter \%ex_spec;
@@ -200,6 +204,30 @@ sub get_registered_role_type {
     $class->registered_role_types->{$name};
 }
 
+# stolen from Sub::Exporter::ForMethods, but with the blessing added
+sub _my_method_installer {
+    my ($arg, $to_export) = @_;
+
+    my $into = $arg->{into};
+
+    for (my $i = 0; $i < @$to_export; $i += 2) {
+      my ($as, $code) = @$to_export[ $i, $i+1 ];
+
+      next if ref $as;
+
+      my $sub = sub { $code->(@_) };
+      my $subtype = blessed $code;
+      bless $sub, $subtype if $subtype;
+
+      $to_export->[ $i + 1 ] = Sub::Name::subname(
+        join(q{::}, $into, $as),
+        $sub,
+      );
+    }
+
+    Sub::Exporter::default_installer($arg, $to_export);
+}
+
 
 1;
 
@@ -209,7 +237,10 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -217,7 +248,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.39
+version 0.40
 
 =head1 DESCRIPTION
 
