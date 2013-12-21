@@ -1,6 +1,6 @@
 package MooseX::Types::Util;
 {
-  $MooseX::Types::Util::VERSION = '0.40';
+  $MooseX::Types::Util::VERSION = '0.41';
 }
 BEGIN {
   $MooseX::Types::Util::AUTHORITY = 'cpan:PHAYLON';
@@ -64,7 +64,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.40
+version 0.41
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package MooseX::Types::Wrapper;
 {
-  $MooseX::Types::Wrapper::VERSION = '0.40';
+  $MooseX::Types::Wrapper::VERSION = '0.41';
 }
 BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
@@ -47,10 +47,7 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -58,7 +55,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.40
+version 0.41
 
 =head1 DESCRIPTION
 

@@ -35,7 +35,6 @@ t/21_coerce_parameterized_types.t
 t/22_class_type.t
 t/23_any_subtype.t
 t/24_class_can_isa.t
-t/25-fully-qualified.t
 t/lib/Combined.pm
 t/lib/DecoratorLibrary.pm
 t/lib/Empty.pm

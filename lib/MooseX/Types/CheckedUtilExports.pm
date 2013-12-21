@@ -1,6 +1,6 @@
 package MooseX::Types::CheckedUtilExports;
 {
-  $MooseX::Types::CheckedUtilExports::VERSION = '0.40';
+  $MooseX::Types::CheckedUtilExports::VERSION = '0.41';
 }
 BEGIN {
   $MooseX::Types::CheckedUtilExports::AUTHORITY = 'cpan:PHAYLON';
@@ -70,10 +70,7 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -81,7 +78,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.40
+version 0.41
 
 =head1 DESCRIPTION
 

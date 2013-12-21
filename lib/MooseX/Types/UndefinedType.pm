@@ -1,6 +1,6 @@
 package MooseX::Types::UndefinedType;
 {
-  $MooseX::Types::UndefinedType::VERSION = '0.40';
+  $MooseX::Types::UndefinedType::VERSION = '0.41';
 }
 BEGIN {
   $MooseX::Types::UndefinedType::AUTHORITY = 'cpan:PHAYLON';

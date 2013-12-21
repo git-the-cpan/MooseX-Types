@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
 {
-  $MooseX::Types::Moose::VERSION = '0.40';
+  $MooseX::Types::Moose::VERSION = '0.41';
 }
 BEGIN {
   $MooseX::Types::Moose::AUTHORITY = 'cpan:PHAYLON';
@@ -35,7 +35,10 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -43,7 +46,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.40
+version 0.41
 
 =head1 SYNOPSIS
 
