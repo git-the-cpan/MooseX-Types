@@ -1,6 +1,6 @@
 package MooseX::Types::TypeDecorator;
 {
-  $MooseX::Types::TypeDecorator::VERSION = '0.41';
+  $MooseX::Types::TypeDecorator::VERSION = '0.42'; # TRIAL
 }
 BEGIN {
   $MooseX::Types::TypeDecorator::AUTHORITY = 'cpan:PHAYLON';
@@ -195,7 +195,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 DESCRIPTION
 

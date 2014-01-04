@@ -1,6 +1,6 @@
 package MooseX::Types::Wrapper;
 {
-  $MooseX::Types::Wrapper::VERSION = '0.41';
+  $MooseX::Types::Wrapper::VERSION = '0.42'; # TRIAL
 }
 BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
@@ -55,7 +55,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 DESCRIPTION
 

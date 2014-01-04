@@ -1,6 +1,6 @@
 package MooseX::Types::Base;
 {
-  $MooseX::Types::Base::VERSION = '0.41';
+  $MooseX::Types::Base::VERSION = '0.42'; # TRIAL
 }
 BEGIN {
   $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
@@ -26,6 +26,11 @@ sub import {
 
     # filter or create options hash for S:E
     my $options = (@args and (ref($args[0]) eq 'HASH')) ? $args[0] : undef;
+
+    # preserve additional options, to ensure types are installed into the type library's namespace
+    my %ex_spec = %{ $options || {} };
+    delete @ex_spec{ qw(-wrapper -into -full) };
+
     unless ($options) {
         $options = {foo => 23};
         unshift @args, $options;
@@ -36,10 +41,12 @@ sub import {
 
     # determine the wrapper, -into is supported for compatibility reasons
     my $wrapper = $options->{ -wrapper } || 'MooseX::Types';
+
     $args[0]->{into} = $options->{ -into }
         if exists $options->{ -into };
 
-    my (%ex_spec, %ex_util);
+    my %ex_util;
+
   TYPE:
     for my $type_short (@types) {
 
@@ -209,7 +216,10 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -217,7 +227,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 DESCRIPTION
 

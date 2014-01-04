@@ -1,6 +1,6 @@
 package MooseX::Types::Moose;
 {
-  $MooseX::Types::Moose::VERSION = '0.41';
+  $MooseX::Types::Moose::VERSION = '0.42'; # TRIAL
 }
 BEGIN {
   $MooseX::Types::Moose::AUTHORITY = 'cpan:PHAYLON';
@@ -46,7 +46,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.41
+version 0.42
 
 =head1 SYNOPSIS
 
