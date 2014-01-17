@@ -1,16 +1,11 @@
+use strict;
+use warnings;
 package MooseX::Types::TypeDecorator;
-{
-  $MooseX::Types::TypeDecorator::VERSION = '0.42'; # TRIAL
-}
 BEGIN {
   $MooseX::Types::TypeDecorator::AUTHORITY = 'cpan:PHAYLON';
 }
-
-#ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
-
-use strict;
-use warnings;
-
+# ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
+$MooseX::Types::TypeDecorator::VERSION = '0.43'; # TRIAL
 use Carp::Clan qw( ^MooseX::Types );
 use Moose::Util::TypeConstraints ();
 use Moose::Meta::TypeConstraint::Union;
@@ -60,6 +55,20 @@ use overload(
 
 );
 
+# =head1 DESCRIPTION
+#
+# This is a decorator object that contains an underlying type constraint.  We use
+# this to control access to the type constraint and to add some features.
+#
+# =head1 METHODS
+#
+# This class defines the following methods.
+#
+# =head2 new
+#
+# Old school instantiation
+#
+# =cut
 
 sub new {
     my $proto = shift;
@@ -86,6 +95,11 @@ sub new {
     }
 }
 
+# =head2 __type_constraint ($type_constraint)
+#
+# Set/Get the type_constraint.
+#
+# =cut
 
 sub __type_constraint {
     my $self = shift @_;
@@ -99,6 +113,12 @@ sub __type_constraint {
     }
 }
 
+# =head2 C<isa>
+#
+# handle C<< $self->isa >> since C<AUTOLOAD> can't - this tries both the type constraint,
+# and for a class type, the class.
+#
+# =cut
 
 sub isa {
   my $self = shift;
@@ -109,6 +129,11 @@ sub isa {
       : $self->SUPER::isa(@_);
 }
 
+# =head2 can
+#
+# handle $self->can since AUTOLOAD can't.
+#
+# =cut
 
 sub can {
     my $self = shift;
@@ -118,6 +143,11 @@ sub can {
         : $self->SUPER::can(@_);
 }
 
+# =head2 _throw_error
+#
+# properly delegate error messages
+#
+# =cut
 
 sub _throw_error {
     shift;
@@ -126,11 +156,25 @@ sub _throw_error {
     goto &Moose::throw_error;
 }
 
+# =head2 DESTROY
+#
+# We might need it later
+#
+# =cut
 
 sub DESTROY {
     return;
 }
 
+# =head2 AUTOLOAD
+#
+# Delegate to the decorator target, unless this is a class type, in which
+# case it will try to delegate to the type object, then if that fails try
+# the class. The method 'new' is special cased to only be permitted on
+# the class; if there is no class, or it does not provide a new method,
+# an exception will be thrown.
+#
+# =cut
 
 sub AUTOLOAD {
     my ($self, @args) = @_;
@@ -178,6 +222,12 @@ sub _try_delegate {
     $inv->$method(@args);
 }
 
+# =head1 LICENSE
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the same terms as perl itself.
+#
+# =cut
 
 1;
 
@@ -195,7 +245,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 DESCRIPTION
 

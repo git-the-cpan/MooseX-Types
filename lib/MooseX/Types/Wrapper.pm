@@ -1,15 +1,10 @@
 package MooseX::Types::Wrapper;
-{
-  $MooseX::Types::Wrapper::VERSION = '0.42'; # TRIAL
-}
 BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
 }
-
-#ABSTRACT: Wrap exports from a library
-
+# ABSTRACT: Wrap exports from a library
+$MooseX::Types::Wrapper::VERSION = '0.43'; # TRIAL
 use Moose;
-
 use Carp::Clan      qw( ^MooseX::Types );
 use Module::Runtime 'use_module';
 
@@ -17,6 +12,15 @@ use namespace::autoclean;
 
 extends 'MooseX::Types';
 
+# =head1 DESCRIPTION
+#
+# See L<MooseX::Types/SYNOPSIS> for detailed usage.
+#
+# =head1 METHODS
+#
+# =head2 import
+#
+# =cut
 
 sub import {
     my ($class, @args) = @_;
@@ -55,7 +59,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 DESCRIPTION
 

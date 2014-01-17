@@ -1,13 +1,10 @@
 package MooseX::Types::Base;
-{
-  $MooseX::Types::Base::VERSION = '0.42'; # TRIAL
-}
 BEGIN {
   $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
 }
-use Moose;
-
 # ABSTRACT: Type library base class
+$MooseX::Types::Base::VERSION = '0.43'; # TRIAL
+use Moose;
 
 use Carp::Clan                      qw( ^MooseX::Types );
 use MooseX::Types::Util             qw( filter_tags );
@@ -16,10 +13,26 @@ use Moose::Util::TypeConstraints;
 
 use namespace::autoclean;
 
+# =head1 DESCRIPTION
+#
+# You normally won't need to interact with this class by yourself. It is
+# merely a collection of functionality that type libraries need to
+# interact with moose and the rest of the L<MooseX::Types> module.
+#
+# =cut
 
 my $UndefMsg = q{Unable to find type '%s' in library '%s'};
 
+# =head1 METHODS
+#
+# =cut
 
+# =head2 import
+#
+# Provides the import mechanism for your library. See
+# L<MooseX::Types/"LIBRARY USAGE"> for syntax details on this.
+#
+# =cut
 
 sub import {
     my ($class, @args) = @_;
@@ -107,6 +120,11 @@ sub import {
     return $class->$exporter(@new_args);
 }
 
+# =head2 get_type
+#
+# This returns a type from the library's store by its name.
+#
+# =cut
 
 sub get_type {
     my ($class, $type) = @_;
@@ -119,6 +137,11 @@ sub get_type {
     return $class->type_storage->{ $type };
 }
 
+# =head2 type_names
+#
+# Returns a list of all known types by their name.
+#
+# =cut
 
 sub type_names {
     my ($class) = @_;
@@ -127,6 +150,11 @@ sub type_names {
     return keys %{ $class->type_storage };
 }
 
+# =head2 add_type
+#
+# Adds a new type to the library.
+#
+# =cut
 
 sub add_type {
     my ($class, $type) = @_;
@@ -135,6 +163,12 @@ sub add_type {
     $class->type_storage->{ $type } = "${class}::${type}";
 }
 
+# =head2 has_type
+#
+# Returns true or false depending on if this library knows a type by that
+# name.
+#
+# =cut
 
 sub has_type {
     my ($class, $type) = @_;
@@ -143,6 +177,13 @@ sub has_type {
     return ! ! $class->type_storage->{ $type };
 }
 
+# =head2 type_storage
+#
+# Returns the library's type storage hash reference. You shouldn't use this
+# method directly unless you know what you are doing. It is not an internal
+# method because overriding it makes virtual libraries very easy.
+#
+# =cut
 
 sub type_storage {
     my ($class) = @_;
@@ -153,6 +194,11 @@ sub type_storage {
     }
 }
 
+# =head2 registered_class_types
+#
+# Returns the class types registered within this library. Don't use directly.
+#
+# =cut
 
 sub registered_class_types {
     my ($class) = @_;
@@ -163,6 +209,11 @@ sub registered_class_types {
     }
 }
 
+# =head2 register_class_type
+#
+# Register a C<class_type> for use in this library by class name.
+#
+# =cut
 
 sub register_class_type {
     my ($class, $type) = @_;
@@ -173,6 +224,11 @@ sub register_class_type {
     $class->registered_class_types->{$type->class} = $type;
 }
 
+# =head2 get_registered_class_type
+#
+# Get a C<class_type> registered in this library by name.
+#
+# =cut
 
 sub get_registered_class_type {
     my ($class, $name) = @_;
@@ -180,6 +236,11 @@ sub get_registered_class_type {
     $class->registered_class_types->{$name};
 }
 
+# =head2 registered_role_types
+#
+# Returns the role types registered within this library. Don't use directly.
+#
+# =cut
 
 sub registered_role_types {
     my ($class) = @_;
@@ -190,6 +251,11 @@ sub registered_role_types {
     }
 }
 
+# =head2 register_role_type
+#
+# Register a C<role_type> for use in this library by role name.
+#
+# =cut
 
 sub register_role_type {
     my ($class, $type) = @_;
@@ -200,6 +266,11 @@ sub register_role_type {
     $class->registered_role_types->{$type->role} = $type;
 }
 
+# =head2 get_registered_role_type
+#
+# Get a C<role_type> registered in this library by role name.
+#
+# =cut
 
 sub get_registered_role_type {
     my ($class, $name) = @_;
@@ -207,6 +278,16 @@ sub get_registered_role_type {
     $class->registered_role_types->{$name};
 }
 
+# =head1 SEE ALSO
+#
+# L<MooseX::Types::Moose>
+#
+# =head1 LICENSE
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the same terms as perl itself.
+#
+# =cut
 
 1;
 
@@ -216,10 +297,7 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -227,7 +305,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 DESCRIPTION
 

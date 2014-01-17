@@ -28,10 +28,21 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
     {
         ::note "$phase calling namespace::autoclean";
 
-        ::ok(MyTypeLibrary->can('NonEmptyStr'), 'type is available as a fully-qualified name on the declaring class');
-        ::ok(eval '\&MyTypeLibrary::NonEmptyStr', 'ditto');
+        SKIP: {
+            ::skip('Moose before 2.1005 could not install blessed subs as methods', 1) if Moose->VERSION < 2.1005;
+            ::ok(MyTypeLibrary->can('NonEmptyStr'),
+                "$phase calling namespace::autoclean: type is available as a method on the declaring class");
+        }
 
-        ::ok(MyTypeLibrary::NonEmptyStr->isa('Moose::Meta::TypeConstraint'), 'type is the right type');
+        ::ok(eval '\&MyTypeLibrary::NonEmptyStr',
+            "$phase calling namespace::autoclean: type is available as a fully-qualified name on the declaring class");
+
+        SKIP: {
+            ::skip('Moose before 2.1005 could not install blessed subs as methods', 1) if Moose->VERSION < 2.1005;
+            ::ok(MyTypeLibrary::NonEmptyStr->isa('Moose::Meta::TypeConstraint'),
+                "$phase calling namespace::autoclean: type is the right type")
+                or ::diag('MyTypeLibrary is type: ' .join(', ', @MyTypeLibrary::ISA));
+        }
 
         last if $phase eq 'after';
     }
@@ -41,7 +52,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
         eval q{use namespace::autoclean};
     }
 
-    ::ok(!MyApp->can('NonEmptyStr'), 'type is not available as a method on the importing class');
+    ::ok(!MyApp->can('NonEmptyStr'), 'type is no longer available as a method on the importing class');
 }
 
 done_testing;

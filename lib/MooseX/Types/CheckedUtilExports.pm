@@ -1,13 +1,9 @@
 package MooseX::Types::CheckedUtilExports;
-{
-  $MooseX::Types::CheckedUtilExports::VERSION = '0.42'; # TRIAL
-}
 BEGIN {
   $MooseX::Types::CheckedUtilExports::AUTHORITY = 'cpan:PHAYLON';
 }
-
-#ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
-
+# ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
+$MooseX::Types::CheckedUtilExports::VERSION = '0.43'; # TRIAL
 use strict;
 use warnings;
 use Moose::Util::TypeConstraints ();
@@ -22,6 +18,29 @@ q{WARNING: String found where Type expected (did you use a => instead of a , ?)}
 
 my @exports = qw/type subtype maybe_type duck_type enum coerce from as/;
 
+# =head1 DESCRIPTION
+#
+# Prevents errors like:
+#
+#     subtype Foo =>
+#     ...
+#
+# Which should be written as:
+#
+#     subtype Foo,
+#     ...
+#
+# When using L<MooseX::Types>. Exported by that module.
+#
+# Exports checked versions of the following subs:
+#
+# C<type> C<subtype> C<maybe_type> C<duck_type> C<enum> C<coerce> C<from> C<as>
+#
+# While C<class_type> and C<role_type> will also register the type in the library.
+#
+# From L<Moose::Util::TypeConstraints>. See that module for syntax.
+#
+# =cut
 
 for my $export (@exports) {
     no strict 'refs';
@@ -61,6 +80,16 @@ sub role_type ($;$) {
     );
 }
 
+# =head1 SEE ALSO
+#
+# L<MooseX::Types>
+#
+# =head1 LICENSE
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the same terms as perl itself.
+#
+# =cut
 
 1;
 
@@ -81,7 +110,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 DESCRIPTION
 

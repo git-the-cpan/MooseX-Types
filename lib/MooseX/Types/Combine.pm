@@ -1,17 +1,33 @@
+use strict;
+use warnings;
 package MooseX::Types::Combine;
-{
-  $MooseX::Types::Combine::VERSION = '0.42'; # TRIAL
-}
 BEGIN {
   $MooseX::Types::Combine::AUTHORITY = 'cpan:PHAYLON';
 }
-
 # ABSTRACT: Combine type libraries for exporting
-
-use strict;
-use warnings;
+$MooseX::Types::Combine::VERSION = '0.43'; # TRIAL
 use Module::Runtime 'use_module';
 
+# =head1 SYNOPSIS
+#
+#     package CombinedTypeLib;
+#
+#     use base 'MooseX::Types::Combine';
+#
+#     __PACKAGE__->provide_types_from(qw/TypeLib1 TypeLib2/);
+#
+#     package UserClass;
+#
+#     use CombinedTypeLib qw/Type1 Type2 ... /;
+#
+# =head1 DESCRIPTION
+#
+# Allows you to export types from multiple type libraries.
+#
+# Libraries on the right end of the list passed to L</provide_types_from>
+# take precedence over those on the left in case of conflicts.
+#
+# =cut
 
 sub import {
     my ($class, @types) = @_;
@@ -42,6 +58,13 @@ sub import {
         for keys %from;
 }
 
+# =head1 CLASS METHODS
+#
+# =head2 provide_types_from
+#
+# Sets or returns a list of type libraries to re-export from.
+#
+# =cut
 
 sub provide_types_from {
     my ($class, @libs) = @_;
@@ -85,6 +108,16 @@ sub _provided_types {
     %$types;
 }
 
+# =head1 SEE ALSO
+#
+# L<MooseX::Types>
+#
+# =head1 LICENSE
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the same terms as perl itself.
+#
+# =cut
 
 1;
 
@@ -94,10 +127,7 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -105,7 +135,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.42
+version 0.43
 
 =head1 SYNOPSIS
 
