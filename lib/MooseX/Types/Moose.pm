@@ -5,7 +5,7 @@ BEGIN {
   $MooseX::Types::Moose::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Type exports that match the types shipped with L<Moose>
-$MooseX::Types::Moose::VERSION = '0.43'; # TRIAL
+$MooseX::Types::Moose::VERSION = '0.44';
 use MooseX::Types;
 use Moose::Util::TypeConstraints ();
 
@@ -66,11 +66,6 @@ sub type_storage { \%BuiltIn_Storage }
 # L<Moose>,
 # L<Moose::Util::TypeConstraints>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 1;
@@ -89,7 +84,7 @@ MooseX::Types::Moose - Type exports that match the types shipped with L<Moose>
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 SYNOPSIS
 
@@ -133,11 +128,6 @@ reference containing all built-in L<Moose> types.
 L<MooseX::Types::Moose>,
 L<Moose>,
 L<Moose::Util::TypeConstraints>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

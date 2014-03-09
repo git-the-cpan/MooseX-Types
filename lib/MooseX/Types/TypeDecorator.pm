@@ -5,11 +5,12 @@ BEGIN {
   $MooseX::Types::TypeDecorator::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Wraps Moose::Meta::TypeConstraint objects with added features
-$MooseX::Types::TypeDecorator::VERSION = '0.43'; # TRIAL
-use Carp::Clan qw( ^MooseX::Types );
+$MooseX::Types::TypeDecorator::VERSION = '0.44';
+use Carp::Clan '^MooseX::Types';
 use Moose::Util::TypeConstraints ();
 use Moose::Meta::TypeConstraint::Union;
 use Scalar::Util qw(blessed);
+use namespace::clean;   # TODO: namespace::autoclean does not yet respect overloads
 
 use overload(
     '0+' => sub {
@@ -222,13 +223,6 @@ sub _try_delegate {
     $inv->$method(@args);
 }
 
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
-# =cut
-
 1;
 
 __END__
@@ -245,7 +239,7 @@ MooseX::Types::TypeDecorator - Wraps Moose::Meta::TypeConstraint objects with ad
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -288,11 +282,6 @@ case it will try to delegate to the type object, then if that fails try
 the class. The method 'new' is special cased to only be permitted on
 the class; if there is no class, or it does not provide a new method,
 an exception will be thrown.
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

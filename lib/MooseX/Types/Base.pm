@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Base::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Type library base class
-$MooseX::Types::Base::VERSION = '0.43'; # TRIAL
+$MooseX::Types::Base::VERSION = '0.44';
 use Moose;
 
 use Carp::Clan                      qw( ^MooseX::Types );
@@ -282,11 +282,6 @@ sub get_registered_role_type {
 #
 # L<MooseX::Types::Moose>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 1;
@@ -305,7 +300,7 @@ MooseX::Types::Base - Type library base class
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -370,11 +365,6 @@ Get a C<role_type> registered in this library by role name.
 =head1 SEE ALSO
 
 L<MooseX::Types::Moose>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

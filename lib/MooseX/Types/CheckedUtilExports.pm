@@ -3,14 +3,12 @@ BEGIN {
   $MooseX::Types::CheckedUtilExports::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Wrap L<Moose::Util::TypeConstraints> to be safer for L<MooseX::Types>
-$MooseX::Types::CheckedUtilExports::VERSION = '0.43'; # TRIAL
+$MooseX::Types::CheckedUtilExports::VERSION = '0.44';
 use strict;
 use warnings;
 use Moose::Util::TypeConstraints ();
 use Moose::Exporter;
-use Sub::Name;
 use Carp;
-
 use namespace::autoclean;
 
 my $StringFoundMsg =
@@ -84,11 +82,6 @@ sub role_type ($;$) {
 #
 # L<MooseX::Types>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 1;
@@ -99,10 +92,7 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
-Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
-'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
-Dieter Pearcey Jesse
+=for :stopwords Robert "phaylon" Sedlacek
 
 =head1 NAME
 
@@ -110,7 +100,7 @@ MooseX::Types::CheckedUtilExports - Wrap L<Moose::Util::TypeConstraints> to be s
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -137,11 +127,6 @@ From L<Moose::Util::TypeConstraints>. See that module for syntax.
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

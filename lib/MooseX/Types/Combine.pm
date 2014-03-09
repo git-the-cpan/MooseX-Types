@@ -5,8 +5,9 @@ BEGIN {
   $MooseX::Types::Combine::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Combine type libraries for exporting
-$MooseX::Types::Combine::VERSION = '0.43'; # TRIAL
+$MooseX::Types::Combine::VERSION = '0.44';
 use Module::Runtime 'use_module';
+use namespace::clean;
 
 # =head1 SYNOPSIS
 #
@@ -112,11 +113,6 @@ sub _provided_types {
 #
 # L<MooseX::Types>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 1;
@@ -135,7 +131,7 @@ MooseX::Types::Combine - Combine type libraries for exporting
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 SYNOPSIS
 
@@ -165,11 +161,6 @@ Sets or returns a list of type libraries to re-export from.
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

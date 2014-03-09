@@ -5,9 +5,10 @@ BEGIN {
   $MooseX::Types::Util::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Common utility functions for the distribution
-$MooseX::Types::Util::VERSION = '0.43'; # TRIAL
+$MooseX::Types::Util::VERSION = '0.44';
 use Scalar::Util 'blessed';
 use base 'Exporter';
+use namespace::clean;
 
 # =head1 DESCRIPTION
 #
@@ -95,11 +96,6 @@ sub has_available_type_export {
 #
 # L<MooseX::Types::Moose>, L<Exporter>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 1;
@@ -110,7 +106,10 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -118,7 +117,7 @@ MooseX::Types::Util - Common utility functions for the distribution
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -172,11 +171,6 @@ or an undefined value.
 =head1 SEE ALSO
 
 L<MooseX::Types::Moose>, L<Exporter>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

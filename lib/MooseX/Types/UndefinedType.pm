@@ -5,9 +5,10 @@ BEGIN {
   $MooseX::Types::UndefinedType::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: a fallback type for when a type cannot be found
-$MooseX::Types::UndefinedType::VERSION = '0.43'; # TRIAL
+$MooseX::Types::UndefinedType::VERSION = '0.44';
 use Moose::Util::TypeConstraints ();
-use Carp::Clan qw( ^MooseX::Types );
+use Carp::Clan '^MooseX::Types';
+use namespace::clean;   # TODO: namespace::autoclean does not yet respect overloads
 
 use overload '""'     => sub { shift->name },
              fallback => 1;
@@ -114,11 +115,6 @@ sub DESTROY {
 # L<Moose::Meta::TypeConstraint>,
 # L<Carp::Clan>
 #
-# =head1 LICENSE
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the same terms as perl itself.
-#
 # =cut
 
 
@@ -138,7 +134,7 @@ MooseX::Types::UndefinedType - a fallback type for when a type cannot be found
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -185,11 +181,6 @@ L<MooseX::Types::Moose>,
 L<Moose::Util::TypeConstraints>,
 L<Moose::Meta::TypeConstraint>,
 L<Carp::Clan>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 

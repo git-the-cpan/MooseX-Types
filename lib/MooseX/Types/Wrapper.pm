@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Types::Wrapper::AUTHORITY = 'cpan:PHAYLON';
 }
 # ABSTRACT: Wrap exports from a library
-$MooseX::Types::Wrapper::VERSION = '0.43'; # TRIAL
+$MooseX::Types::Wrapper::VERSION = '0.44';
 use Moose;
 use Carp::Clan      qw( ^MooseX::Types );
 use Module::Runtime 'use_module';
@@ -51,7 +51,10 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Robert "phaylon" Sedlacek
+=for :stopwords Robert "phaylon" Sedlacek Dave Luehrs John Napiorkowski Justin Hunter Karen
+Etheridge Kent Fredric Matt Rolsky S Trout Paul Fenwick Rafael Kitover
+'phaylon' Tomas Florian Doran (t0m) matthewt Ragwitz Graham Knop Hans
+Dieter Pearcey Jesse
 
 =head1 NAME
 
@@ -59,7 +62,7 @@ MooseX::Types::Wrapper - Wrap exports from a library
 
 =head1 VERSION
 
-version 0.43
+version 0.44
 
 =head1 DESCRIPTION
 
@@ -72,11 +75,6 @@ See L<MooseX::Types/SYNOPSIS> for detailed usage.
 =head1 SEE ALSO
 
 L<MooseX::Types>
-
-=head1 LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as perl itself.
 
 =head1 AUTHOR
 
