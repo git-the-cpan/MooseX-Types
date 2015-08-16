@@ -4,7 +4,7 @@ use Test::More tests => 2;
 
 note 'Checking Changes';
 my $changes_file = 'Changes';
-my $newver = '0.45';
+my $newver = '0.46';
 my $trial_token = '-TRIAL';
 
 SKIP: {

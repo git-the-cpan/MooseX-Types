@@ -2,11 +2,11 @@ use 5.006;
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.046
+# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.054
 
-use Test::More 0.94 tests => 9 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More 0.94;
 
-
+plan tests => 10;
 
 my @module_files = (
     'MooseX/Types.pm',
@@ -44,6 +44,9 @@ for my $lib (@module_files)
     waitpid($pid, 0);
     is($?, 0, "$lib loaded ok");
 
+    shift @_warnings if @_warnings and $_warnings[0] =~ /^Using .*\bblib/
+        and not eval { require blib; blib->VERSION('1.01') };
+
     if (@_warnings)
     {
         warn @_warnings;
@@ -53,6 +56,7 @@ for my $lib (@module_files)
 
 
 
-is(scalar(@warnings), 0, 'no warnings found') or diag 'got warnings: ', explain \@warnings if $ENV{AUTHOR_TESTING};
+is(scalar(@warnings), 0, 'no warnings found')
+    or diag 'got warnings: ', explain(\@warnings);
 
 BAIL_OUT("Compilation problems") if !Test::More->builder->is_passing;

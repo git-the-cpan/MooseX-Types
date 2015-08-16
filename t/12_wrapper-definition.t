@@ -1,11 +1,11 @@
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 
 use lib 't/lib';
-use Moose::Util::TypeConstraints;
+use Moose::Util::TypeConstraints qw( coerce from via );
 BEGIN { coerce 'Str', from 'Int', via { "$_" } }
 use TestWrapper TestLibrary => [qw( NonEmptyStr IntArrayRef )],
                 Moose       => [qw( Str Int )];
